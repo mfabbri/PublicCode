@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objectGridConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ibm.com/ws/objectgrid/config ../objectGrid.xsd"
+	xmlns="http://ibm.com/ws/objectgrid/config">
+
+<!-- This file is an example ObjectGrid descriptor file for starting grid container
+     servers.  It is configured to run with the eXtreme I/O transport type (XIO) using  
+     eXtreme Data Formatting (XDF).  In addition, the Dependency ID and Template indexes are 
+     configured to use a Global Index, which improves invalidation performance. 
+     
+     This file is intended to be used "as-is".  It is subject to change with WebSphere eXtreme 
+     Scale releases, so it is recommended that it be copied to a separate location for use. 
+      
+     objectGrid name and backingMap name:
+     These values in this file do not directly correspond to the dynamic cache instance name 
+     configured for the WebSphere Application Server's cache instance and typically do not
+     need to be changed.  If, however, these values are changed, then corresponding 
+     custom properties must be added to the configuration of the dynamic cache instance .
+      
+     copyMode:
+     This backingMap property is set to COPY_TO_BYTES.   This value enables 
+     eXtreme Data Format (XDF) when the eXtreme I/O (XIO) transport type is used.  Changing 
+     to some other copyMode will disable XDF and will require that the ObjectTransformer 
+     plugin bean be uncommented.
+     
+     lockStrategy:
+     This backingMap property is set to PESSIMISTIC.  Setting this to OPTIMISTIC or NONE
+     will trigger near cache processing and must be accompanied with other properties 
+     (See dynamic-nearcache-objectgrid.xml) 
+     
+     backingMapPluginCollections:
+     The MapIndexPlugins and Evictor are mandatory items for dynamic caching and must not 
+     be removed.
+     
+     GlobalIndexEnabled:
+     Both the DEPENDENCY_ID_INDEX and TEMPLATE_INDEX contain a GlobalIndexEnabled 
+     property set to true.  Setting this value to false will disable the global index
+     feature for these indexes.  It is recommended to leave these global indexes enabled 
+     unless you are running with a small number of total paritions ( < 40 ). 
+     
+     ObjectTransformer: 
+     Since this file is intended to run in eXtreme Data Format (XDF) this plugin as beeen
+     commented out.  If XDF is to be disabled (via changing the copyMode) then this plugin
+     must be uncommented.     
+     -->
+
+	<objectGrids>
+		<objectGrid name="DYNACACHE_REMOTE" txTimeout="15">
+			<backingMap name="IBM_DC_PARTITIONED_.*" template="true"
+				readOnly="false" pluginCollectionRef="all" preloadMode="false"
+				lockStrategy="PESSIMISTIC" copyMode="COPY_TO_BYTES"				
+				ttlEvictorType="NONE" nullValuesSupported="false" />
+		</objectGrid>
+	</objectGrids>
+
+	<backingMapPluginCollections>
+
+		<backingMapPluginCollection id="all">
+			<bean id="MapIndexPlugin" className="com.ibm.websphere.objectgrid.plugins.index.HashIndex">
+				<property name="Name" type="java.lang.String" value="DEPENDENCY_ID_INDEX"
+					description="index name" />
+				<property name="RangeIndex" type="boolean" value="false"
+					description="true for MapRangeIndex" />
+				<property name="AttributeName" type="java.lang.String"
+					value="dependencies" description="attribute name" />
+				<property name="GlobalIndexEnabled" type="boolean" value="true"
+					description="required to enable global index" />
+				<property name="FieldAccessAttribute" type="boolean" value="true"
+					description="access the fields rather than getters" />
+			</bean>
+			<bean id="MapIndexPlugin" className="com.ibm.websphere.objectgrid.plugins.index.HashIndex">
+				<property name="Name" type="java.lang.String" value="TEMPLATE_INDEX"
+					description="index name" />
+				<property name="RangeIndex" type="boolean" value="false"
+					description="true for MapRangeIndex" />
+				<property name="AttributeName" type="java.lang.String"
+					value="templates" description="attribute name" />
+				<property name="GlobalIndexEnabled" type="boolean" value="true"
+					description="required to enable global index" />
+				<property name="FieldAccessAttribute" type="boolean" value="true"
+					description="access the fields rather than getters" />
+			</bean>
+<!-- This ObjectTransformer is required when copyMode is not  COPY_TO_BYTES (ie. eXtreme Data Formatting)  -->			
+<!--		<bean id="ObjectTransformer"
+				className="com.ibm.ws.objectgrid.dynacache.entries.CacheEntryData$Transformer" /> 
+-->
+			<bean id="Evictor"
+				className="com.ibm.ws.objectgrid.dynacache.evictors.DistributedDynacacheEvictor" />
+			<bean id="Loader" className="com.ibm.ws.objectgrid.dynacache.DynacacheLoader" />
+		</backingMapPluginCollection>
+
+	</backingMapPluginCollections>
+
+</objectGridConfig>

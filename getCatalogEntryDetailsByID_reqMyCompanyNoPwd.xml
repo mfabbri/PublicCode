@@ -1,0 +1,23 @@
+<soapenv:Envelope xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<soapenv:Header xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+<wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" soapenv:mustUnderstand="1">
+</wsse:Security>
+</soapenv:Header>
+<soapenv:Body>
+<_cat:GetCatalogEntry xmlns:_cat="http://www.ibm.com/xmlns/prod/commerce/9/catalog" xmlns:_wcf="http://www.ibm.com/xmlns/prod/commerce/9/foundation" xmlns:oa="http://www.openapplications.org/oagis/9" versionID="6.0.0.4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <oa:ApplicationArea xsi:type="_wcf:ApplicationAreaType">
+    <oa:CreationDateTime>2008-02-28T16:45:04.031Z</oa:CreationDateTime>
+    <oa:BODID>68f2ec00-e5ee-11dc-8295-838d47c697b8</oa:BODID>
+    <_wcf:BusinessContext>
+      <_wcf:ContextData name="storeId">10001</_wcf:ContextData>
+      <_wcf:ContextData name="catalogId">10001</_wcf:ContextData>
+    </_wcf:BusinessContext>
+  </oa:ApplicationArea>
+  <_cat:DataArea>
+    <oa:Get>
+      <oa:Expression expressionLanguage="_wcf:XPath">{_wcf.ap=MyCompany_CatalogEntryEssentials}/CatalogEntry[CatalogEntryIdentifier[(UniqueID='10251')]]</oa:Expression>
+    </oa:Get>
+  </_cat:DataArea>
+</_cat:GetCatalogEntry>
+</soapenv:Body>
+</soapenv:Envelope>

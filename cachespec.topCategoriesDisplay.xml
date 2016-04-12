@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<!DOCTYPE cache SYSTEM "cachespec.dtd">
+
+<cache>
+
+	<cache-entry>
+		<class>servlet</class>
+
+		<!-- The new stores based on struts have changed name of the main Servlet. 
+			The new servlet name is ECActionServlet -->
+
+		<name>com.ibm.commerce.struts.ECActionServlet.class</name>
+		<property name="consume-subfragments">true</property>
+		<property name="save-attributes">
+			false
+			<exclude>javax.servlet.forward.path_info</exclude>
+			<exclude>requestURIPath</exclude>
+			<exclude>requestServletPath</exclude>
+			<exclude>jspStoreDir</exclude>
+		</property>
+		<property name="store-cookies">false</property>
+
+
+		<!-- *********************************************************************** -->
+		<!-- *********************************************************************** -->
+		<!-- Full Page Cache for New Aurora Starts here -->
+		<!-- *********************************************************************** -->
+		<!-- *********************************************************************** -->
+
+		<!-- Displays HomePage TopCategoriesDisplay command first ensures that 
+			the specified Catalog can be displayed in the current store and then forwards 
+			to 'TopCategoriesDisplayView', which is mapped to HomePage in Aurora Store. 
+			No cache entry is required for TopCategoriesDisplayView or HomePage.jsp -->
+		<cache-id>
+			<component id="" type="pathinfo">
+				<required>true</required>
+				<value>/TopCategoriesDisplay</value>
+			</component>
+			<component id="storeId" type="parameter">
+				<required>true</required>
+			</component>
+			<component id="langId" type="parameter">
+				<required>true</required>
+			</component>
+			<component id="DC_curr" type="attribute">
+				<required>true</required>
+			</component>
+			<component id="catalogId" type="parameter">
+				<required>true</required>
+			</component>
+			<component id="DC_mg" type="attribute">
+				<required>true</required>
+			</component>
+			<component id="DC_cont" type="attribute">
+				<required>true</required>
+			</component>
+			<metadatagenerator>com.ibm.commerce.infrastructure.layout.cache.LayoutAssociationMetaDataGenerator</metadatagenerator>
+		</cache-id>
+		<dependency-id>
+			HomePage
+			<component id="" ignore-value="true" type="pathinfo">
+				<required>true</required>
+				<value>/TopCategoriesDisplay</value>
+			</component>
+			<component id="storeId" type="parameter">
+				<required>true</required>
+			</component>
+		</dependency-id>
+
+	</cache-entry>
+</cache>

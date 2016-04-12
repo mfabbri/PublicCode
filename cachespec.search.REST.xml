@@ -1,0 +1,87 @@
+<?xml version="1.0"	?>
+<!DOCTYPE cache	SYSTEM "cachespec.dtd">
+
+<cache>
+
+	<cache-entry>
+		<class>servlet</class>
+		<name>org.apache.wink.server.internal.servlet.RestServlet.class</name>
+		
+		<!-- Cache-id for 5 Tokens not include search -->
+		<!-- Design for following URL: -->
+		<!-- /wcs/resources/store/{storeid}/categoryview/byId/{uniqueID}  														-->
+		<!-- /wcs/resources/store/{storeid}/categoryview/byParentCategory/{category_unique_id}   								-->
+		<!-- /wcs/resources/store/{storeid}/productview/byId/{uniqueID}  														-->
+		<!-- /wcs/resources/store/{storeId}/productview/byCategory/{category_unique_id} 									-->
+		<cache-id>
+		   <component id="previewToken" type="attribute">
+				<required>false</required>
+			</component>
+			<component id="DC_PathToken_1" type="attribute">
+				<required>true</required>
+				<value>store</value>
+			</component>
+			<component id="DC_PathToken_2" type="attribute">
+				<required>true</required>
+			</component>
+			<component id="DC_PathToken_3" type="attribute">
+				<required>true</required>
+				<value>categoryview</value>
+				<value>productview</value>
+				<value>espot</value>
+			</component>
+			<component id="DC_PathToken_4" type="attribute">
+				<required>true</required>
+				<not-value>bySearchTerm</not-value>
+			</component>
+			<component id="DC_PathToken_5" type="attribute">
+				<required>true</required>
+			</component>
+			<component id="format" type="attribute">
+			    <required>false</required>
+			</component>
+			<component id="catalogId" type="attribute">
+			    <required>false</required>
+			</component>
+			<component id="langId" type="attribute">
+			    <required>false</required>
+			</component>
+			<component id="currency" type="attribute">
+			    <required>false</required>
+			</component>
+			<timeout>86400</timeout>
+			<!--<metadatagenerator>com.ibm.commerce.rest.caching.RESTMetaDataGenerator</metadatagenerator>-->
+		</cache-id>
+		
+
+		
+				<!--  Define the dependency-id for URL: /wcs/resources/store/{storeid}/categoryview/byId/{uniqueID}  -->
+		<!--  Define the dependency-id for URL: /wcs/resources/store/{storeid}/categoryview/byParentCategory/{uniqueID}  -->
+		<dependency-id>
+			CategoryDisplay:storeId:categoryId
+			<component id="DC_PathToken_1" type="attribute"
+				ignore-value="true">
+				<required>true</required>
+				<value>store</value>
+			</component>
+			<component id="DC_PathToken_2" type="attribute">
+				<required>true</required>
+			</component>
+			<component id="DC_PathToken_3" type="attribute"
+				ignore-value="true">
+				<required>true</required>
+				<value>categoryview</value>
+			</component>
+			<component id="DC_PathToken_4" type="attribute"
+			    ignore-value="true">
+				<required>true</required>
+				<value>byId</value>
+				<value>byParentCategory</value>
+			</component>
+			<component id="DC_PathToken_5" type="attribute">
+				<required>true</required>
+			</component>
+		</dependency-id>
+
+	</cache-entry>
+</cache>

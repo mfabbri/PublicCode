@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ =================================================================
+  Licensed Materials - Property of IBM
+
+  WebSphere Commerce
+
+  (C) Copyright IBM Corp. 2008, 2010 All Rights Reserved.
+
+  US Government Users Restricted Rights - Use, duplication or
+  disclosure restricted by GSA ADP Schedule Contract with
+  IBM Corp.
+ =================================================================
+-->
+<_config:get-data-config xmlns:_config="http://www.ibm.com/xmlns/prod/commerce/foundation/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.ibm.com/xmlns/prod/commerce/foundation/config ../../xsd/get-data-config.xsd ">
+
+
+
+	<expression-builder>
+		<name>mycompanyGetCatalogEntryEssentialsByID</name>
+		<data-type-name>CatalogEntry</data-type-name>
+		<expression-template>{_wcf.ap=$accessProfile$}/CatalogEntry[CatalogEntryIdentifier[(UniqueID='$catEntryId$')]]</expression-template>
+		<param>
+			<name>accessProfile</name>
+			<value>MyCompany_CatalogEntryEssentials</value>
+		</param>
+	</expression-builder>
+	
+</_config:get-data-config>

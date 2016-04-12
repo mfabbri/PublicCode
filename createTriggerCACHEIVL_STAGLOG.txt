@@ -1,0 +1,72 @@
+connect to <dbName>@
+Create trigger CACHEIVL_IP
+               AFTER INSERT ON cacheivl REFERENCING NEW AS N
+               FOR EACH ROW MODE DB2SQL
+			   WHEN (N.DATAID LIKE 'ProductDisplay%')
+               BEGIN ATOMIC
+     INSERT INTO staglog
+     (  stgrfnbr
+     ,  stgstmp
+     ,  stgtable
+     ,  stgop
+     ,  stgmenbr
+     ,  stgkey3name
+	 ,  stgkey5name
+     ,  stgokey3
+     ,  stgnkey3
+	 ,  stgokey5
+     ,  stgnkey5
+	 ,	STGFILTER
+     )
+     VALUES (
+         NEXTVAL FOR STAGESEQ
+      ,  CURRENT TIMESTAMP
+      ,  'cacheivl'
+      ,  'I'
+      ,  1
+      ,  'dataid'
+	  ,  'inserttime'
+      ,  N.DATAID
+	  ,  N.DATAID
+      ,  N.INSERTTIME
+      ,  N.INSERTTIME
+	  ,  1
+     );
+END
+@
+Create trigger CACHEIVL_IC
+               AFTER INSERT ON cacheivl REFERENCING NEW AS N
+               FOR EACH ROW MODE DB2SQL
+			   WHEN (N.DATAID LIKE 'CategoryDisplay%')
+               BEGIN ATOMIC
+     INSERT INTO staglog
+     (  stgrfnbr
+     ,  stgstmp
+     ,  stgtable
+     ,  stgop
+     ,  stgmenbr
+     ,  stgkey3name
+	 ,  stgkey5name
+     ,  stgokey3
+     ,  stgnkey3
+	 ,  stgokey5
+     ,  stgnkey5
+	 ,	STGFILTER
+     )
+     VALUES (
+         NEXTVAL FOR STAGESEQ
+      ,  CURRENT TIMESTAMP
+      ,  'cacheivl'
+      ,  'I'
+      ,  1
+      ,  'dataid'
+	  ,  'inserttime'
+      ,  N.DATAID
+	  ,  N.DATAID
+      ,  N.INSERTTIME
+      ,  N.INSERTTIME
+	  ,  1
+     );
+END
+@
+connect reset

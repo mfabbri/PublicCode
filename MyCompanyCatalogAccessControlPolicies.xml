@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no" ?>
+<!DOCTYPE Policies SYSTEM "../dtd/accesscontrolpolicies.dtd">
+
+<!--********************************************************************-->
+<!--  Licensed Materials - Property of IBM                              -->
+<!--                                                                    -->
+<!--  WebSphere Commerce                                                -->
+<!--                                                                    -->
+<!--  (c) Copyright IBM Corp. 2007                                      -->
+<!--                                                                    -->
+<!--  US Government Users Restricted Rights - Use, duplication or       -->
+<!--  disclosure restricted by GSA ADP Schedule Contract with IBM Corp. -->
+<!--                                                                    -->
+<!--********************************************************************-->
+<Policies>
+
+	<Action Name="DisplayResourceAction" CommandName="Display"/>
+
+
+   <!-- ==================================================================================== -->
+   <!-- =========== com.ibm.commerce.catalog access profile begin ==================================== -->
+  
+	<Action Name="GetCatalogEntry.MyCompany_CatalogEntryEssentials" CommandName="GetCatalogEntry.MyCompany_CatalogEntryEssentials"/>
+  
+
+   <!-- =========== com.ibm.commerce.catalog access profile end ==================================== -->
+   <!-- ==================================================================================== -->
+
+   <!-- ==================================================================================== -->
+  	
+
+   <!-- ==================================================================================== -->
+   <!-- =========== com.ibm.commerce.catalog access profile action groups begin ==================================== -->
+
+	<ActionGroup Name="Catalog-CatalogEntry-AllUsers-AccessProfileActionGroup" OwnerID="RootOrganization">
+		<ActionGroupAction Name="GetCatalogEntry.MyCompany_CatalogEntryEssentials"/>		
+		
+	</ActionGroup>
+
+   <!-- =========== com.ibm.commerce.catalog access profile action groups end ==================================== -->
+   <!-- ==================================================================================== -->
+
+   <!-- ==================================================================================== -->
+   <!-- =========== com.ibm.commerce.catalog oagis action groups begin ==================================== -->
+
+   <!-- =========== com.ibm.commerce.catalog oagis action groups end ==================================== -->
+   <!-- ==================================================================================== -->
+
+   <!-- ==================================================================================== -->
+   <!-- =========== com.ibm.commerce.catalog access profile policies begin ==================================== -->
+
+
+		<!-- =========== com.ibm.commerce.catalog access profile policies end ==================================== -->
+   <!-- ==================================================================================== -->
+   <!-- ==================================================================================== -->
+   <!-- =========== com.ibm.commerce.catalog oagis action groups begin ==================================== -->
+
+</Policies>

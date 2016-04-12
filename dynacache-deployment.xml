@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploymentPolicy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://ibm.com/ws/objectgrid/deploymentPolicy ../deploymentPolicy.xsd"
+	xmlns="http://ibm.com/ws/objectgrid/deploymentPolicy">
+
+<!-- This file is an example deployment descriptor file for starting grid container
+     servers for dynamic cacheing. 
+     
+     This file can be used "as-is".  It is subject to change with WebSphere eXtreme 
+     Scale releases, so it is recommended that it be copied to a separate location for use. 
+      
+     The following are occasionally changed.  Please refer to the WebSphere eXtreme Scale 
+     infocenter for detailed information on each of these parameters. 
+      
+     mapSet name and mapRef name:
+     These values in this file do not directly correspond to the dynamic cache instance name 
+     configured for the WebSphere Application Server's cache instance are typically not changed.  
+     If, however, these values are changed, then corresponding custom properties 
+     must be added to the configuration of the dynamic cache instance .
+      
+     numberOfPartitions:
+     This may be changed to represent the appropriate number of partitions for your configuration.
+     For more information see the "Capacity Planning" section of the WebSphere eXtreme Scale InfoCenter.
+      
+     maxAsyncReplicas:
+     A dynamic cache typically is used in a side-cache model with a database or some other source
+     as the system of record for the data.  As a result, the space and performance trade-offs required
+     make the data highly available discourage the use of replication.  However, in some cases 
+     high availability is important.
+     
+     numInitialContainers:
+     This should be set to the number of containers that will included in the initial startup of the
+     data grid.  Having this set correctly will aid in the placement and distribution of partitions 
+     throught the data grid.         
+     -->
+
+
+	<objectgridDeployment objectgridName="DYNACACHE_REMOTE">
+       <mapSet name="DYNACACHE_REMOTE"
+				numberOfPartitions="47"
+				minSyncReplicas="0"
+				maxSyncReplicas="0"
+				maxAsyncReplicas="0"
+				numInitialContainers="1"
+				developmentMode="true"
+				replicaReadEnabled="false">
+ 		   <map ref="IBM_DC_PARTITIONED_.*" />
+       </mapSet>
+	</objectgridDeployment>
+</deploymentPolicy>

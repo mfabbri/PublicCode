@@ -1,0 +1,161 @@
+<?xml version="1.0" ?>
+<!-- 
+
+Cachespec for invalidation in production
+
+-->
+
+<!-- *********************************************************************** -->
+<!-- *********************************************************************** -->
+
+<!DOCTYPE cache SYSTEM "cachespec.dtd">
+
+<cache>
+
+	<!-- ***************************************************************** -->
+	<!-- * Start full page caching of catalog browsing pages. * -->
+	<!-- ***************************************************************** -->
+	<cache-entry>
+		<class>servlet</class>
+	
+
+		<name>com.ibm.commerce.struts.ECActionServlet.class</name>
+		<property name="consume-subfragments">true</property>
+		<property name="save-attributes">false
+			<exclude>javax.servlet.forward.path_info</exclude>
+			<exclude>requestURIPath</exclude>
+			<exclude>requestServletPath</exclude>
+			<exclude>jspStoreDir</exclude>
+		</property>
+		<property name="store-cookies">false</property>
+	
+	<!-- 
+			Displays HomePage
+			TopCategoriesDisplay command first ensures that the specified Catalog can be displayed in the current store and then forwards to 'TopCategoriesDisplayView', which is mapped to HomePage 
+			in mayoral Store. No cache entry is required for TopCategoriesDisplayView or HomePage.jsp
+		-->
+		<cache-id>
+			<component id="" type="pathinfo">
+				<required>true</required>
+				<value>/TopCategoriesDisplay</value>
+			</component>
+			<component id="storeId" type="parameter">
+					<required>true</required>
+			</component>
+			<component id="langId" type="parameter">
+				<required>true</required>
+			</component>
+			<component id="DC_curr" type="attribute">
+				<required>true</required>
+			</component>
+			<component id="catalogId" type="parameter">
+					<required>true</required>
+			</component>			
+			<metadatagenerator>com.ibm.commerce.infrastructure.layout.cache.LayoutAssociationMetaDataGenerator</metadatagenerator>
+		</cache-id>
+
+		<!--
+			Displays category page details using TopCategoryPage.jsp or any other category JSP set. Ex: Furniture
+			The purpose of CategoryDisplay command is to retrieve the configured Display Page for the specified Category 
+			in the specified catalog. That display page will in turn be launched to display the Category information.
+			It looks at DISPCGPREL table to get the JSP pages to display the category.
+		-->
+		<cache-id>
+			<component id="" type="pathinfo">
+				<required>true</required>
+				<value>/CategoryDisplay</value>
+			</component>
+			<component id="storeId" type="parameter">
+				<required>true</required>
+			</component>
+			<component id="langId" type="parameter">
+				<required>true</required>
+			</component>
+			<component id="DC_curr" type="attribute">
+				<required>true</required>
+			</component>
+			<component id="catalogId" type="parameter">
+				<required>true</required>
+			</component>
+			<component id="categoryId" type="parameter">
+				<required>true</required>
+			</component>
+			<component id="pageView" type="parameter">
+				<required>false</required>
+			</component>
+			<component id="fromPage" type="parameter">
+				<required>false</required>
+			</component>
+			<metadatagenerator>com.ibm.commerce.infrastructure.layout.cache.LayoutAssociationMetaDataGenerator</metadatagenerator>
+		</cache-id>
+
+		
+		<!-- 
+			Displays product/item/bundle/package details. This command first makes sure that the catentry can be displayed in current store and then retrieves the display page name from
+			DISPENTREL and DISPCGPREL table and display the catentry details.
+		-->
+		<!-- ProductDisplay?storeId=<storeId>&productId=<productId> -->
+		<cache-id>
+			<component id="" type="pathinfo">
+				<required>true</required>
+				<value>/ProductDisplay</value>
+			</component>
+			<component id="storeId" type="parameter">
+				<required>true</required>
+			</component>
+			<component id="langId" type="parameter">
+				<required>true</required>
+			</component>
+			<component id="productId" type="parameter">
+				<required>true</required>
+			</component>
+			<component id="summaryOnly" type="parameter">
+				<required>false</required>
+			</component>
+			<component id="categoryId" type="parameter">
+				<required>false</required>
+			</component>
+			<metadatagenerator>com.ibm.commerce.infrastructure.layout.cache.LayoutAssociationMetaDataGenerator</metadatagenerator>
+		</cache-id>
+		
+
+		<dependency-id>ProductDisplay:productId:langId
+		  <component id="" ignore-value="true" type="pathinfo">
+			 <required>true</required>
+			 <value>/ProductDisplay</value>
+		  </component>
+		  <component id="productId" type="parameter">
+			 <required>true</required>
+		  </component>
+		  <component id="DC_lang" type="attribute">
+			 <required>true</required>
+		  </component>
+	   </dependency-id>
+	   
+	   <dependency-id>CategoryDisplay:categoryId:langId
+		  <component id="" ignore-value="true" type="pathinfo">
+			 <required>true</required>
+			 <value>/CategoryDisplay</value>
+		  </component>
+		  <component id="categoryId" type="parameter">
+			 <required>true</required>
+		  </component>
+		  <component id="DC_lang" type="attribute">
+			 <required>true</required>
+		  </component>
+	   </dependency-id>
+	   
+	   <dependency-id>TopCategoriesDisplay:langId
+		  <component id="" ignore-value="true" type="pathinfo">
+			 <required>true</required>
+			 <value>/TopCategoriesDisplay</value>
+		  </component>
+		  <component id="DC_lang" type="attribute">
+			 <required>true</required>
+		  </component>
+	   </dependency-id>
+
+	</cache-entry>
+	
+
+</cache>

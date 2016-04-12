@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="project-warmup-dynacache" default="all">
+
+<property file="/opt/IBM/WC/wcbd/deploy/server/project-test.properties" />
+<property file="/opt/IBM/WC/wcbd/deploy/server/project-test.private.properties" />
+
+	<!-- Define Ant-Contrib tasks -->
+	<taskdef resource="net/sf/antcontrib/antlib.xml" />
+
+	<target name="all">
+		<antcall target="createCategoryURLs" />
+		<antcall target="createProductsURLs" />
+	</target>
+
+	<target name="createCategoryURLs">
+		<foreach list="${cluster.members}"
+		         target="warmupCategorias"
+		         param="clone.host"
+		         trim="true"
+		         inheritall="true"
+		         inheritrefs="true">
+		</foreach>
+	</target>
+	<target name="createProductsURLs">
+		<foreach list="${cluster.members}"
+		         target="warmupProductos"
+		         param="clone.host"
+		         trim="true"
+		         inheritall="true"
+		         inheritrefs="true">
+		</foreach>
+	</target>
+	
+	<target name="warmupCategorias">
+		<sql driver="${jdbc.driver}"
+			url="${jdbc.url}"
+			userid="${db.user.name}"
+			password="${db.user.password}"
+			classpath="${jdbc.driver.path}"
+			output="categoryURLList.${clone.host}.txt"
+			print="true">select DISTINCT 'url = "http://${clone.host}/webapp/wcs/stores/servlet/Category3_10151_' || cata.catalog_id || '_'||CATESPADRE.CATGROUP_ID||'_-5_Y_image_0_____"' from catgroup catespadre, catgrprel rela, catgroup cateshija, catalog cata, store st, cattogrp catrel where CATESPADRE.CATGROUP_ID = RELA.CATGROUP_ID_PARENT and CATESHIJA.CATGROUP_ID = RELA.CATGROUP_ID_CHILD and CATA.CATALOG_ID = CATREL.CATALOG_ID and CATA.identifier = 'Extended Sites Catalog Asset Store' and ST.DIRECTORY = 'MadisonsESite' and CATESPADRE.MARKFORDELETE &lt;&gt; 1 and CATESPADRE.LASTUPDATE &gt; to_timestamp ('09/12/2011','DD/MM/YYYY') UNION select DISTINCT 'url = "http://${clone.host}/webapp/wcs/stores/servlet/Category3_10151_' || cata.catalog_id || '_'||CATESPADRE.CATGROUP_ID||'_-5_Y_image_0___'||CATESHIJA.CATGROUP_ID||'__"' from catgroup catespadre, catgrprel rela, catgroup cateshija, catalog cata where RELA.CATALOG_ID = CATA.CATALOG_ID and CATA.identifier = 'Extended Sites Catalog Asset Store' and CATESPADRE.CATGROUP_ID = RELA.CATGROUP_ID_PARENT and CATESHIJA.CATGROUP_ID = RELA.CATGROUP_ID_CHILD and CATESPADRE.MARKFORDELETE &lt;&gt; 1 and CATESPADRE.LASTUPDATE &gt; to_timestamp ('09/12/2011','DD/MM/YYYY');</sql>
+		<exec executable="antRunAsync.sh" failonerror="yes">
+			<env key="ANTRUN_NOHUP" value="true" /> <!-- optional -->
+			<env key="ANTRUN_OUTPUT" value="/opt/IBM/WC/wcbd/deploy/server/categoryURLListOutput.${clone.host}.txt" /> <!-- required -->
+			<arg value="/opt/IBM/WC/wcbd/deploy/server/getCategoriesCurl-test.sh categoryURLList.${clone.host}.txt categoryURLListOutput.${clone.host}.txt" />
+		</exec>
+		
+	</target>
+
+	<target name="warmupProductos">
+		<sql driver="${jdbc.driver}"
+			url="${jdbc.url}"
+			userid="${db.user.name}"
+			password="${db.user.password}"
+			classpath="${jdbc.driver.path}"
+			output="productURLList.${clone.host}.txt"
+			print="true">select DISTINCT 'url = "http://${clone.host}/webapp/wcs/stores/servlet/Product2_10151_' || CATALOGO.catalog_id || '_'||producto.catentry_id||'_-5_'||CATDESPADRE.CATGROUP_ID||'_'||CATDESPADRE.CATGROUP_ID||'_'||CATDESPADRE.CATGROUP_ID||'__NONE_Y_image_0____"' from catentry producto, catgroup catdespadre, catalog catalogo, catgpenrel relacion where CATALOGO.CATALOG_ID = RELACION.CATALOG_ID and RELACION.CATGROUP_ID = catdespadre.CATGROUP_ID and RELACION.CATENTRY_ID = PRODUCTO.CATENTRY_ID and CATALOGO.CATALOG_ID = 12551 and producto.buyable = 1 and PRODUCTO.CATENTTYPE_ID = 'ProductBean' and CATALOGO.identifier = 'Extended Sites Catalog Asset Store';</sql>
+		<exec executable="antRunAsync.sh" failonerror="yes">
+			<env key="ANTRUN_NOHUP" value="true" /> <!-- optional -->
+			<env key="ANTRUN_OUTPUT" value="/opt/IBM/WC/wcbd/deploy/server/productURLListOutput.${clone.host}.txt" /> <!-- required -->
+			<arg value="/opt/IBM/WC/wcbd/deploy/server/getProductsCurl-test.sh productURLList.${clone.host}.txt productURLListOutput.${clone.host}.txt" />
+		</exec>	
+	</target>
+	
+</project>

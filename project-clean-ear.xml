@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="wcbd-manage-EAR" default="generateZipToClean">
+
+	<property file="/opt/IBM/WebSphere/CommerceServer70/wcbd/project-clean-ear.properties" />
+	<path id="was.class.path">
+		<fileset dir="${was.home}">
+			<include name="lib/**/*.jar" />
+			<include name="plugins/**/*.jar" />
+		</fileset>
+	</path>
+	<taskdef name="wsadmin"
+		         classname="com.ibm.websphere.ant.tasks.WsAdmin"
+		         classpathref="was.class.path" />
+	<tstamp>
+		<format property="days.before.clean" pattern="MM/dd/yyyy hh:mm"
+              offset="${daysBeforeClean}" unit="day"/>
+	</tstamp>
+	<delete dir="${filePathIBMDeleteProps}/zips"/>
+	
+	<target name="generateZipToClean">
+		<fileset id="filesListToDelete" dir="${attachmentsFolderEAR}">
+			<include name="**/*.jpg" />
+			<date datetime="${days.before.clean}" when="before" pattern="MM/dd/yyyy hh:mm" />
+		</fileset>
+		<pathconvert pathsep="${line.separator}" property="lastFiles" refid="filesListToDelete">
+			<map from="${mapFolderFrom}" to="${mapFolderTo}"/>
+		</pathconvert>
+		<echo file="${filePathIBMDeleteProps}/ibm-partialapp-delete.props">${lastFiles}</echo>
+		<mkdir dir="${filePathIBMDeleteProps}/zips/Stores.war/META-INF"/>
+		<copy file="${filePathIBMDeleteProps}/ibm-partialapp-delete.props" tofile="${filePathIBMDeleteProps}/zips/Stores.war/META-INF/ibm-partialapp-delete.props"/>
+		<zip destfile="${filePathIBMDeleteProps}/fileListToDelete.zip"
+		       basedir="${filePathIBMDeleteProps}/zips/"
+		  />
+		<wsadmin script="${WASScriptFolder}/partialappUpdate.py"
+		         lang="jacl"
+		         failonerror="true"
+		         wasHome="${was.home}"
+		         host="${was.host}"
+		         conntype="${was.conntype}"
+		         port="${was.port}"
+		         profileName="${was.profile.name}"
+		         jvmMaxMemory="${was.jvm.max.memory}">
+			<arg value="${was.application.name}" />
+			<arg value="${filePathIBMDeleteProps}/fileListToDelete.zip" />
+		</wsadmin>
+
+	</target>
+</project>

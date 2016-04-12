@@ -1,0 +1,373 @@
+<?xml version="1.0" ?>
+<!DOCTYPE cache SYSTEM "cachespec.dtd">
+
+<cache>
+	
+	
+		
+	<cache-instance name="services/cache/AuroraESpots">
+	<cache-entry>
+	  <class>command</class>
+  		<name>com.ibm.commerce.dynacache.commands.StringHolderCmdImpl</name>
+  			<invalidation>
+    			<component type="method" id="getString">
+    		</component>
+  		</invalidation>
+  	</cache-entry>
+
+		      <!-- *** DIALOG MARKETING COMMAND CACHE ENTRIES *** -->
+      
+      <!-- Cache Entry for Filter Category -->
+      <cache-entry>
+        <class>command</class>
+        <sharing-policy>not-shared</sharing-policy>
+        <name>com.ibm.commerce.marketing.commands.marketingspot.FilterCategoryTaskCmdImpl</name>
+        <cache-id>
+            <component id="getCacheKey" type="method">
+                <required>true</required>
+            </component>
+            <component id="getDataType" type="method">
+                <required>true</required>
+            </component>            
+            <component id="getStoreId" type="method">
+                <required>true</required>
+            </component>
+            <component id="getLanguageId" type="method">
+                <required>true</required>
+            </component>            
+            <component id="getActivityId" type="method">
+                <required>true</required>
+            </component>
+            <component id="getCatalogId" type="method">
+                <required>true</required>
+            </component>
+            <!-- NOTE: see comment above for including getContracts, getActiveOrg, and getMemberGroups -->
+            <!-- 
+            <component id="getContracts" type="method">
+                <required>true</required>
+            </component>
+            <component id="getActiveOrg" type="method">
+                <required>true</required>
+            </component>
+            <component id="getMemberGroups" type="method">
+                <required>false</required>
+            </component>
+            -->
+            <component id="getExperimentId" type="method">
+                <required>false</required>
+            </component>
+            <component id="getTestElementId" type="method">
+                <required>false</required>
+            </component>
+            <!-- NEW: for e-Marketing Spot caching -->
+            <component id="getMarketingSpotBehavior" type="method">
+               <value>1</value>
+            </component>                                       
+            <priority>10</priority>
+            <timeout>10800</timeout>
+            <inactivity>3600</inactivity>
+        </cache-id>
+        
+        <!-- Invalidate when the associated category or activity has changed. -->
+        <dependency-id>categoryId
+            <component id="getCacheKey" type="method">
+                <required>true</required>
+            </component>
+        </dependency-id>
+            
+        <dependency-id>activityId
+            <component id="getActivityId" type="method">
+                <required>true</required>
+            </component>
+        </dependency-id>
+        <dependency-id>catalogFilter:storeId
+            <component id="getStoreId" type="method">
+                <required>true</required>
+            </component>
+     	</dependency-id>
+                     
+        <dependency-id>dialogMarketingCommand</dependency-id>
+        
+      </cache-entry>
+
+
+      <!-- Cache Entry for Filter Catalog Entry -->
+      <cache-entry>
+        <class>command</class>
+        <sharing-policy>not-shared</sharing-policy>
+        <name>com.ibm.commerce.marketing.commands.marketingspot.FilterCatalogEntryTaskCmdImpl</name>
+        <cache-id>
+            <component id="getCacheKey" type="method">
+                <required>true</required>
+            </component>
+            <component id="getDataType" type="method">
+                <required>true</required>
+            </component>              
+            <component id="getStoreId" type="method">
+                <required>true</required>
+            </component>
+            <component id="getLanguageId" type="method">
+                <required>true</required>
+            </component>                 
+            <component id="getActivityId" type="method">
+                <required>true</required>
+            </component>
+            <component id="getCatalogId" type="method">
+                <required>true</required>
+            </component>
+            <!-- NOTE: see comment above for including getContracts, getActiveOrg, and getMemberGroups -->
+            <!-- 
+            <component id="getContracts" type="method">
+                <required>true</required>
+            </component>
+            <component id="getActiveOrg" type="method">
+                <required>true</required>
+            </component>
+            <component id="getMemberGroups" type="method">
+                <required>false</required>
+            </component>
+            -->
+            <component id="getExperimentId" type="method">
+                <required>false</required>
+            </component>
+            <component id="getTestElementId" type="method">
+                <required>false</required>
+            </component>       
+            <!-- NEW: for e-Marketing Spot caching -->
+            <component id="getMarketingSpotBehavior" type="method">
+               <value>1</value>
+            </component>                     
+            <priority>10</priority>
+            <timeout>10800</timeout>
+            <inactivity>3600</inactivity>
+        </cache-id>
+        
+        <!-- Invalidate when the associated catalog entry or activity has changed. -->
+        <dependency-id>productId
+            <component id="getCacheKey" type="method">
+                <required>true</required>
+            </component>
+        </dependency-id>
+                
+        <dependency-id>activityId
+            <component id="getActivityId" type="method">
+                <required>true</required>
+            </component>
+        </dependency-id>
+        
+        <dependency-id>catalogFilter:storeId
+            <component id="getStoreId" type="method">
+                <required>true</required>
+            </component>
+        </dependency-id>
+                      
+        <dependency-id>dialogMarketingCommand</dependency-id>
+        
+      </cache-entry>
+      
+      
+      <!-- Cache Entry for Filter Marketing Content -->
+      <cache-entry>
+        <class>command</class>
+        <sharing-policy>not-shared</sharing-policy>
+        <name>com.ibm.commerce.marketing.commands.marketingspot.FilterContentTaskCmdImpl</name>
+        <cache-id>
+            <component id="getCacheKey" type="method">
+                <required>true</required>
+            </component>
+            <component id="getDataType" type="method">
+                <required>true</required>
+            </component>              
+            <component id="getStoreId" type="method">
+                <required>true</required>
+            </component>
+            <component id="getLanguageId" type="method">
+                <required>true</required>
+            </component>                 
+            <component id="getActivityId" type="method">
+                <required>true</required>
+            </component>
+            <component id="getCatalogId" type="method">
+                <required>true</required>
+            </component>
+            <!-- NOTE: see comment above for including getContracts, getActiveOrg, and getMemberGroups -->
+            <!--
+            <component id="getContracts" type="method">
+                <required>true</required>
+            </component>
+            <component id="getActiveOrg" type="method">
+                <required>true</required>
+            </component>
+            <component id="getMemberGroups" type="method">
+                <required>false</required>
+            </component>
+            -->
+            <component id="getExperimentId" type="method">
+                <required>false</required>
+            </component>
+            <component id="getTestElementId" type="method">
+                <required>false</required>
+            </component>   
+            <!-- NEW: for e-Marketing Spot caching -->
+            <component id="getMarketingSpotBehavior" type="method">
+               <value>1</value>
+            </component>                         
+            <priority>10</priority>
+            <timeout>10800</timeout>
+            <inactivity>3600</inactivity>
+        </cache-id>
+        
+        <!-- Invalidate when the associated marketing content or activity has changed. -->
+        <dependency-id>contentId
+            <component id="getCacheKey" type="method">
+                <required>true</required>
+            </component>
+        </dependency-id>
+                
+        <dependency-id>activityId
+            <component id="getActivityId" type="method">
+                <required>true</required>
+            </component>
+        </dependency-id>
+        <dependency-id>catalogFilter:storeId
+            <component id="getStoreId" type="method">
+                <required>true</required>
+            </component>
+     	</dependency-id>
+                   
+        <dependency-id>dialogMarketingCommand</dependency-id>
+        
+      </cache-entry>
+
+      <!-- *** END OF DIALOG MARKETING COMMAND CACHE ENTRIES *** -->
+
+      <!-- *** DIALOG MARKETING INVALIDATION POLICIES *** -->
+      
+      <!-- For any e-Marketing Spots that display Best Sellers or Top Browsed ranking list,
+           it is recommend to cache the e-Marketing Spot JSP snippet, or cache the entire 
+           page which contains the e-Marketing Spot JSP snippet. This is because the 
+           Best Sellers and Top Browsed are only updated once a day, so the contents remain
+           the same for 24 hours. When the lists are updated, the InvalidateRankingServletCmd
+           command is called, which triggers this invalidation rule. Any Best Sellers or 
+           Top Browsed pages or e-Marketing Spot JSP snippets that are cached should
+           have a dependency-id on RankingEMarketingSpot. -->
+      <cache-entry>
+				<class>command</class>
+				<name>com.ibm.commerce.marketing.commands.ranking.InvalidateRankingServletCmdImpl</name>
+				<invalidation>RankingEMarketingSpot</invalidation>
+			</cache-entry>
+
+      <!-- Activity update -->
+      <cache-entry>
+      	<class>command</class>
+        <name>com.ibm.commerce.marketing.facade.server.commands.ProcessActivityCmdImpl</name>
+	      <property name="delay-invalidations">true</property>
+	      <invalidation>activityId
+		      <component id="getUniqueID" type="method" multipleIDs="true">
+			      <required>true</required>		
+		      </component>
+	      </invalidation>
+      </cache-entry>
+
+      <!-- Category update -->
+      <cache-entry>
+	      <class>command</class>
+	      <name>com.ibm.commerce.catalog.facade.server.commands.ChangeCatalogGroupCmdImpl</name>
+        <name>com.ibm.commerce.catalog.facade.server.commands.ProcessCatalogGroupCmdImpl</name>
+	      <property name="delay-invalidations">true</property>
+	      <invalidation>categoryId
+		      <component id="getUniqueID" type="method" multipleIDs="true">
+			      <required>true</required>		
+		      </component>
+	      </invalidation>
+      </cache-entry>
+	
+	    <!-- Catalog Entry update -->
+      <cache-entry>
+	      <class>command</class>
+	      <name>com.ibm.commerce.catalog.facade.server.commands.ChangeCatalogEntryCmdImpl</name>
+        <name>com.ibm.commerce.catalog.facade.server.commands.ProcessCatalogEntryCmdImpl</name>
+	      <property name="delay-invalidations">true</property>
+	      <invalidation>productId
+		      <component id="getUniqueID" type="method" multipleIDs="true">
+			      <required>true</required>		
+		      </component>
+	      </invalidation>
+      </cache-entry>
+
+      <!-- Marketing Content update -->
+      <cache-entry>
+	      <class>command</class>
+	      <name>com.ibm.commerce.marketing.facade.server.commands.ChangeMarketingContentCmdImpl</name>
+        <name>com.ibm.commerce.marketing.facade.server.commands.ProcessMarketingContentCmdImpl</name>
+	      <property name="delay-invalidations">true</property>
+	      <invalidation>contentId
+		      <component id="getUniqueID" type="method" multipleIDs="true">
+			      <required>true</required>		
+		      </component>
+	      </invalidation>
+      </cache-entry>
+
+      <!-- *** END OF DIALOG MARKETING INVALIDATION POLICIES *** -->
+      <!-- *** E-MARKETING SPOT CACHING *** -->
+      
+      <!-- *** NOTE: The following technique can be used to cache the e-Marketing Spot JSP fragment *** -->
+	    <!-- *** when the e-Marketing Spot displays the same results to all customers.                *** -->
+	    <!-- *** The EMarketingSpotMetaDataGenerator, along with the TagEMarketingSpotCache JSTL tag, *** -->
+	    <!-- *** will dynamically determine if the e-Marketing Spot JSP fragment can be cached,       *** -->
+      <!-- *** or if the marketing activities need to be evaluated.                                 *** -->
+      
+      <!-- This entry is commented out and provided as an example.  You can change the cache entry name as appropriate, and create
+           a cache-entry for each e-Marketing Spot in your store. -->
+          
+	<cache-entry>
+		<class>servlet</class>
+		<name>/AuroraStorefrontAssetStore/Widgets/ESpot/ContentRecommendation/ContentRecommendation.jsp</name>
+
+		<!-- The default value for do-not-consume must be true. The actual value will be
+		     dynamically set at runtime by the EMarketingSpotMetaDataGenerator.
+		-->
+      
+		<property name="do-not-consume">true</property>
+
+		<!-- The default value for do-not-cache must be true. The actual value will be
+		     dynamically set at runtime by the EMarketingSpotMetaDataGenerator.
+		-->
+      
+		<property name="do-not-cache">true</property>
+		<property name="save-attributes">false</property>
+
+		<cache-id>
+			<component id="emsName" type="parameter">
+				<required>false</required>
+			</component>
+			<component id="numberContentPerRow" type="parameter">
+				<required>false</required>
+			</component>
+			<component id="catalogId" type="parameter">
+				<required>false</required>
+			</component>
+			<component id="ribbonAdWidth" type="parameter">
+				<required>false</required>
+			</component>
+			<component id="ribbonAdHeight" type="parameter">
+				<required>false</required>
+			</component>
+			<component id="useRibbon" type="parameter">
+				<required>false</required>
+			</component>
+			<component id="DC_storeId" type="attribute">
+				<required>false</required>
+			</component>
+			<component id="DC_lang" type="attribute">
+				<required>false</required>
+			</component>
+			<!-- Use the EMarketingSpotMetaDataGenerator along with the TagEMarketingSpotCache JSTL tag. -->
+     
+			<metadatagenerator>com.ibm.commerce.marketing.cache.EMarketingSpotMetaDataGenerator</metadatagenerator>
+		</cache-id>
+	</cache-entry>
+	
+      
+	</cache-instance>
+</cache>
