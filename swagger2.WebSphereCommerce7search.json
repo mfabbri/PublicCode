@@ -1,0 +1,4328 @@
+{
+    "host": "cloudcommerce.atsistemas.com",
+    "basePath": "/search/resources",
+    "schemes": [
+        "http"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "title": "cloudcommerce.atsistemas.com",
+        "version": "WC.TOOLKIT Enterprise Version : 7 Fix Pack : 9 Feature Pack : 7.0.8.0"
+    },
+    "tags": [
+        {
+            "name": "api",
+            "description": "Information about the resources and APIs available on the server."
+        },
+        {
+            "name": "categoryview",
+            "description": "This class provides RESTful services to get category data for search-based catalog navigation. It performs the services by delegating to the CatalogNavigationView BOD service."
+        },
+        {
+            "name": "productview",
+            "description": "This class provides RESTful services to get the ProductView details."
+        },
+        {
+            "name": "sitecontent",
+            "description": "This class provides RESTful services to get resource details for site content."
+        }
+    ],
+    "paths": {
+        "/api": {
+            "get": {
+                "tags": [
+                    "api"
+                ],
+                "operationId": "getResourceList",
+                "summary": "Get the list of available resources on the server.",
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "description": "The response format. If the request has an input body, that body must also use the format specified in \"responseFormat\". Valid values include \"json\" and \"xml\" without the quotes. If the responseFormat isn't specified, the \"accept\" HTTP header shall be used to determine the format of the response. If the \"accept\" HTTP header isn't specified as well, the default response format shall be in json.",
+                        "name": "responseFormat",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "xml",
+                            "json"
+                        ]
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested completed successfully.",
+                        "schema": {
+                            "$ref": "#/definitions/com.ibm.commerce.rest.api.handler.ApiHandler$ResourceLinkList"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Some of the inputs provided to the request aren't valid."
+                    },
+                    "403": {
+                        "description": "If API Discovery is disabled on the server."
+                    },
+                    "500": {
+                        "description": "Internal server error. Additional details will be contained on the server logs."
+                    }
+                }
+            }
+        },
+        "/api/aggregated": {
+            "get": {
+                "tags": [
+                    "api"
+                ],
+                "operationId": "getAggregatedResourceList",
+                "summary": "Get the aggregated list of available resources on multiple server.",
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "description": "The response format. If the request has an input body, that body must also use the format specified in \"responseFormat\". Valid values include \"json\" and \"xml\" without the quotes. If the responseFormat isn't specified, the \"accept\" HTTP header shall be used to determine the format of the response. If the \"accept\" HTTP header isn't specified as well, the default response format shall be in json.",
+                        "name": "responseFormat",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "xml",
+                            "json"
+                        ]
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested completed successfully.",
+                        "schema": {
+                            "$ref": "#/definitions/com.ibm.commerce.rest.api.handler.ApiHandler$ResourceLinkList"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Some of the inputs provided to the request aren't valid."
+                    },
+                    "403": {
+                        "description": "If API Discovery is disabled on the server."
+                    },
+                    "500": {
+                        "description": "Internal server error. Additional details will be contained on the server logs."
+                    }
+                }
+            }
+        },
+        "/api/resource/{resourceName}": {
+            "get": {
+                "tags": [
+                    "api"
+                ],
+                "operationId": "getResourceDescription",
+                "summary": "Describe the APIs available on a resource by name.",
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "The name of the resource.",
+                        "name": "resourceName",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The response format. If the request has an input body, that body must also use the format specified in \"responseFormat\". Valid values include \"json\" and \"xml\" without the quotes. If the responseFormat isn't specified, the \"accept\" HTTP header shall be used to determine the format of the response. If the \"accept\" HTTP header isn't specified as well, the default response format shall be in json.",
+                        "name": "responseFormat",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "xml",
+                            "json"
+                        ]
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested completed successfully.",
+                        "schema": {
+                            "$ref": "#/definitions/com.ibm.commerce.rest.api.handler.ApiHandler$ResourceDescription"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Some of the inputs provided to the request aren't valid."
+                    },
+                    "403": {
+                        "description": "If API Discovery is disabled on the server."
+                    },
+                    "500": {
+                        "description": "Internal server error. Additional details will be contained on the server logs."
+                    }
+                }
+            }
+        },
+        "/api/bundle/{resourceName}": {
+            "get": {
+                "tags": [
+                    "api"
+                ],
+                "operationId": "getResourceDescriptionBundle",
+                "summary": "Generate the default API resource bundle used for translation.",
+                "description": "The output of this service call is the content of the english resource bundle.",
+                "produces": [
+                    "application/json",
+                    "application/xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "The name of the resource.",
+                        "name": "resourceName",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested completed successfully.",
+                        "schema": {
+                            "$ref": "#/definitions/Empty"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Some of the inputs provided to the request aren't valid."
+                    },
+                    "403": {
+                        "description": "If API Discovery is disabled on the server."
+                    },
+                    "500": {
+                        "description": "Internal server error. Additional details will be contained on the server logs."
+                    }
+                }
+            }
+        },
+        "/store/{storeId}/categoryview/byId/{categoryId}": {
+            "get": {
+                "tags": [
+                    "categoryview"
+                ],
+                "operationId": "findCategoryByUniqueId",
+                "summary": "Gets category details based on its unique ID assigned by the database.",
+                "produces": [
+                    "application/json",
+                    "application/xml",
+                    "application/xhtml+xml",
+                    "application/atom+xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "The store identifier.",
+                        "name": "storeId",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "0",
+                            "10001",
+                            "10051",
+                            "10101",
+                            "10151",
+                            "10201",
+                            "10202",
+                            "10701",
+                            "10751"
+                        ]
+                    },
+                    {
+                        "in": "path",
+                        "description": "The category identifier that was assigned by the database.",
+                        "name": "categoryId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The catalog identifier. If none is specified, the store default catalog shall be used.",
+                        "name": "catalogId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The currency code to use. Example usage : currency=USD. If no currency code is specified, the store default currency shall be used.",
+                        "name": "currency",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "JPY",
+                            "CNY",
+                            "BRL",
+                            "EUR",
+                            "RON",
+                            "RUB",
+                            "PLN",
+                            "EGP",
+                            "USD",
+                            "KRW",
+                            "TWD",
+                            "CAD",
+                            "GBP"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "The contractId",
+                        "name": "contractId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Option to force an entitlement check.",
+                        "name": "checkEntitlement",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested completed successfully.",
+                        "schema": {
+                            "$ref": "#/definitions/CategoryViewHandler_categoryresult.json"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Some of the inputs provided to the request aren't valid."
+                    },
+                    "401": {
+                        "description": "Not authenticated. The user session isn't valid."
+                    },
+                    "403": {
+                        "description": "The user isn't authorized to perform the specified request."
+                    },
+                    "404": {
+                        "description": "The specified resource couldn't be found."
+                    },
+                    "500": {
+                        "description": "Internal server error. Additional details will be contained on the server logs."
+                    }
+                }
+            }
+        },
+        "/store/{storeId}/categoryview/byIds": {
+            "get": {
+                "tags": [
+                    "categoryview"
+                ],
+                "operationId": "findCategoryByUniqueIds",
+                "summary": "Gets category details based on its unique ID.",
+                "produces": [
+                    "application/json",
+                    "application/xml",
+                    "application/xhtml+xml",
+                    "application/atom+xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "The store identifier.",
+                        "name": "storeId",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "0",
+                            "10001",
+                            "10051",
+                            "10101",
+                            "10151",
+                            "10201",
+                            "10202",
+                            "10701",
+                            "10751"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "The list of category identifiers.",
+                        "name": "id",
+                        "required": true,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "description": "The catalog identifier. If none is specified, the store default catalog shall be used.",
+                        "name": "catalogId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The field name to use when ordering the results.",
+                        "name": "orderBy",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The contractId",
+                        "name": "contractId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The currency code to use. Example usage : currency=USD. If no currency code is specified, the store default currency shall be used.",
+                        "name": "currency",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "JPY",
+                            "CNY",
+                            "BRL",
+                            "EUR",
+                            "RON",
+                            "RUB",
+                            "PLN",
+                            "EGP",
+                            "USD",
+                            "KRW",
+                            "TWD",
+                            "CAD",
+                            "GBP"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "Option to force an entitlement check.",
+                        "name": "checkEntitlement",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested completed successfully.",
+                        "schema": {
+                            "$ref": "#/definitions/CategoryViewHandler_categoriesresult.json"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Some of the inputs provided to the request aren't valid."
+                    },
+                    "401": {
+                        "description": "Not authenticated. The user session isn't valid."
+                    },
+                    "403": {
+                        "description": "The user isn't authorized to perform the specified request."
+                    },
+                    "404": {
+                        "description": "The specified resource couldn't be found."
+                    },
+                    "500": {
+                        "description": "Internal server error. Additional details will be contained on the server logs."
+                    }
+                }
+            }
+        },
+        "/store/{storeId}/categoryview/@top": {
+            "get": {
+                "tags": [
+                    "categoryview"
+                ],
+                "operationId": "findTopCategories",
+                "summary": "Gets all top level categories.",
+                "produces": [
+                    "application/json",
+                    "application/xml",
+                    "application/xhtml+xml",
+                    "application/atom+xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "The store identifier.",
+                        "name": "storeId",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "0",
+                            "10001",
+                            "10051",
+                            "10101",
+                            "10151",
+                            "10201",
+                            "10202",
+                            "10701",
+                            "10751"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "The comma separated list of numbers is to control the depth of sub-categories and limit the number of items returned under each child category level. The first number in this list determines the maximum of categories (first level sub-categories) to be returned under the immediate child category. The second number in the list determines the maximum number of categories to be returned under the first level sub-categories. A value of \"-1\" implies no limit. In that case, only the first level categories will be returned. For example, \"pageSize=4&limitSubCategories=-1,3,0,1\" implies that there will be unlimited first level sub-categories under the immediate child categories.  Under these categories (up to 4), all sub-categories will be returned and a maximum of 3 second level sub-categories will be returned. There will be no third level or fourth level since the third level limit is 0. Any level after a limit of 0 will be ignored. By default, no sub-category will be returned if this parameter is not specified. When the asterisk \"*\" is specified, it is considered the same as \"-1\" but, any subsequent levels will also be treated \"-1\".",
+                        "name": "depthAndLimit",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The field name to use when ordering the results.",
+                        "name": "orderBy",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The catalog identifier. If none is specified, the store default catalog shall be used.",
+                        "name": "catalogId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The contractId",
+                        "name": "contractId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The currency code to use. Example usage : currency=USD. If no currency code is specified, the store default currency shall be used.",
+                        "name": "currency",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "JPY",
+                            "CNY",
+                            "BRL",
+                            "EUR",
+                            "RON",
+                            "RUB",
+                            "PLN",
+                            "EGP",
+                            "USD",
+                            "KRW",
+                            "TWD",
+                            "CAD",
+                            "GBP"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "Page size. Used to limit the amount of data returned by a query. Valid values include positive integers of 1 and above. The \"pageNumber\" must be specified for paging to work.",
+                        "name": "pageSize",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Page number, starting at 1. Valid values include positive integers of 1 and above. The \"pageSize\" must be specified for paging to work.",
+                        "name": "pageNumber",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Option to force an entitlement check.",
+                        "name": "checkEntitlement",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested completed successfully.",
+                        "schema": {
+                            "$ref": "#/definitions/CategoryViewHandler_topcategories.json"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Some of the inputs provided to the request aren't valid."
+                    },
+                    "401": {
+                        "description": "Not authenticated. The user session isn't valid."
+                    },
+                    "403": {
+                        "description": "The user isn't authorized to perform the specified request."
+                    },
+                    "404": {
+                        "description": "The specified resource couldn't be found."
+                    },
+                    "500": {
+                        "description": "Internal server error. Additional details will be contained on the server logs."
+                    }
+                }
+            }
+        },
+        "/store/{storeId}/categoryview/byParentCategory/{parentCategoryId}": {
+            "get": {
+                "tags": [
+                    "categoryview"
+                ],
+                "operationId": "findSubCategories",
+                "summary": "Gets child categories based on the parent category unique ID.",
+                "produces": [
+                    "application/json",
+                    "application/xml",
+                    "application/xhtml+xml",
+                    "application/atom+xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "The store identifier.",
+                        "name": "storeId",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "0",
+                            "10001",
+                            "10051",
+                            "10101",
+                            "10151",
+                            "10201",
+                            "10202",
+                            "10701",
+                            "10751"
+                        ]
+                    },
+                    {
+                        "in": "path",
+                        "description": "The parent category id.",
+                        "name": "parentCategoryId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The comma separated list of numbers is to control the depth of sub-categories and limit the number of items returned under each child category level. The first number in this list determines the maximum of categories (first level sub-categories) to be returned under the immediate child category. The second number in the list determines the maximum number of categories to be returned under the first level sub-categories. A value of \"-1\" implies no limit. In that case, only the first level categories will be returned. For example, \"pageSize=4&limitSubCategories=-1,3,0,1\" implies that there will be unlimited first level sub-categories under the immediate child categories.  Under these categories (up to 4), all sub-categories will be returned and a maximum of 3 second level sub-categories will be returned. There will be no third level or fourth level since the third level limit is 0. Any level after a limit of 0 will be ignored. By default, no sub-category will be returned if this parameter is not specified. When the asterisk \"*\" is specified, it is considered the same as \"-1\" but, any subsequent levels will also be treated \"-1\".",
+                        "name": "depthAndLimit",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The field name to use when ordering the results.",
+                        "name": "orderBy",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The contractId",
+                        "name": "contractId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The catalog identifier. If none is specified, the store default catalog shall be used.",
+                        "name": "catalogId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The currency code to use. Example usage : currency=USD. If no currency code is specified, the store default currency shall be used.",
+                        "name": "currency",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "JPY",
+                            "CNY",
+                            "BRL",
+                            "EUR",
+                            "RON",
+                            "RUB",
+                            "PLN",
+                            "EGP",
+                            "USD",
+                            "KRW",
+                            "TWD",
+                            "CAD",
+                            "GBP"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "Page size. Used to limit the amount of data returned by a query. Valid values include positive integers of 1 and above. The \"pageNumber\" must be specified for paging to work.",
+                        "name": "pageSize",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Page number, starting at 1. Valid values include positive integers of 1 and above. The \"pageSize\" must be specified for paging to work.",
+                        "name": "pageNumber",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Option to force an entitlement check.",
+                        "name": "checkEntitlement",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested completed successfully.",
+                        "schema": {
+                            "$ref": "#/definitions/CategoryViewHandler_categoriesresult.json"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Some of the inputs provided to the request aren't valid."
+                    },
+                    "401": {
+                        "description": "Not authenticated. The user session isn't valid."
+                    },
+                    "403": {
+                        "description": "The user isn't authorized to perform the specified request."
+                    },
+                    "404": {
+                        "description": "The specified resource couldn't be found."
+                    },
+                    "500": {
+                        "description": "Internal server error. Additional details will be contained on the server logs."
+                    }
+                }
+            }
+        },
+        "/store/{storeId}/categoryview/{categoryIdentifier}": {
+            "get": {
+                "tags": [
+                    "categoryview"
+                ],
+                "operationId": "findCategoryByIdentifier",
+                "summary": "Gets category details based on its identifier (not the id assigned by the database).",
+                "produces": [
+                    "application/json",
+                    "application/xml",
+                    "application/xhtml+xml",
+                    "application/atom+xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "The store identifier.",
+                        "name": "storeId",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "0",
+                            "10001",
+                            "10051",
+                            "10101",
+                            "10151",
+                            "10201",
+                            "10202",
+                            "10701",
+                            "10751"
+                        ]
+                    },
+                    {
+                        "in": "path",
+                        "description": "The category identifier that was configured, not the one assigned by the database.",
+                        "name": "categoryIdentifier",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The catalog identifier. If none is specified, the store default catalog shall be used.",
+                        "name": "catalogId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The contractId",
+                        "name": "contractId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The currency code to use. Example usage : currency=USD. If no currency code is specified, the store default currency shall be used.",
+                        "name": "currency",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "JPY",
+                            "CNY",
+                            "BRL",
+                            "EUR",
+                            "RON",
+                            "RUB",
+                            "PLN",
+                            "EGP",
+                            "USD",
+                            "KRW",
+                            "TWD",
+                            "CAD",
+                            "GBP"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "Option to force an entitlement check.",
+                        "name": "checkEntitlement",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested completed successfully.",
+                        "schema": {
+                            "$ref": "#/definitions/CategoryViewHandler_categoryresult.json"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Some of the inputs provided to the request aren't valid."
+                    },
+                    "401": {
+                        "description": "Not authenticated. The user session isn't valid."
+                    },
+                    "403": {
+                        "description": "The user isn't authorized to perform the specified request."
+                    },
+                    "404": {
+                        "description": "The specified resource couldn't be found."
+                    },
+                    "500": {
+                        "description": "Internal server error. Additional details will be contained on the server logs."
+                    }
+                }
+            }
+        },
+        "/store/{storeId}/productview/byCategory/{categoryId}": {
+            "get": {
+                "tags": [
+                    "productview"
+                ],
+                "operationId": "findProductsByCategory",
+                "summary": "By default, this API returns all products under the category and subcategories by deep search. It does not only return products in the current category. There is no control over the limit of each subcategory under the category facet.",
+                "produces": [
+                    "application/json",
+                    "application/xml",
+                    "application/xhtml+xml",
+                    "application/atom+xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "The store identifier.",
+                        "name": "storeId",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "0",
+                            "10001",
+                            "10051",
+                            "10101",
+                            "10151",
+                            "10201",
+                            "10202",
+                            "10701",
+                            "10751"
+                        ]
+                    },
+                    {
+                        "in": "path",
+                        "description": "The category identifier.",
+                        "name": "categoryId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The type of the merchandising association to be returned.",
+                        "name": "associationType",
+                        "required": false,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "description": "The attribute associated keywords to be returned.",
+                        "name": "attributeKeyword",
+                        "required": false,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "description": "The selected facets.",
+                        "name": "facet",
+                        "required": false,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "description": "The multiple name-value pairs of facet limit defining the maximum number of items to be returned under each facet. The sequence of limits honored alongside with the sequence of facet name-value pairs.",
+                        "name": "facetLimit",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The advanced facet list.",
+                        "name": "advancedFacetList",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The filter facet.",
+                        "name": "filterFacet",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The filter term.",
+                        "name": "filterTerm",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The manufacturer name.",
+                        "name": "manufacturer",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The contractId",
+                        "name": "contractId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The minimum price. Based on the selected currency.",
+                        "name": "minPrice",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The maximum price. Based on the selected currency.mc",
+                        "name": "maxPrice",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The field name to use when ordering the results.",
+                        "name": "orderBy",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The search type is a numeric string with controls the query operator: ANY, OR, AND and control what data to be returned. For a detailed list of valid values, see the online documentation on Match type (_wcf.search.type). Known valid values include : 0: ANY (exclude SKU)1: EXACT (exclude SKU), 2: ALL (exclude SKU), 3: NONE (exclude SKU), 10: ANY (include SKU), 11: EXACT (include SKU), 12: ALL (include SKU), 13: NONE (include SKU), 100: ANY (only SKU), 101: EXACT (only SKU), 102: ALL (only SKU), 103: NONE (only SKU), 1000: ANY (include products, kits, bundles, category level SKU) (exclude product level SKU), 1001: EXACT (include products, kits, bundles, category level SKU) (exclude product level SKU), 1002: ALL (include products, kits, bundles, category level SKU) (exclude product level SKU), 1003: NONE (include products, kits, bundles, category level SKU) (exclude product level SKU), 10000: ANY (include category level SKU) (exclude products, kits, bundles, product level SKU), 10001: EXACT (include category level SKU) (exclude products, kits, bundles, product level SKU), 10002: ALL (include category level SKU) (exclude products, kits, bundles, product level SKU), 10003: NONE (include category level SKU) (exclude products, kits, bundles, product level SKU)",
+                        "name": "searchType",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The search source. The default is \"N\" for shallow search navigation. All other values will result in expanded search in sub-categories.",
+                        "name": "searchSource",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The price mode.",
+                        "name": "priceMode",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Option to force an entitlement check.",
+                        "name": "checkEntitlement",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The attachment filter.",
+                        "name": "attachementFilter",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The catalog identifier. If none is specified, the store default catalog shall be used.",
+                        "name": "catalogId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The currency code to use. Example usage : currency=USD. If no currency code is specified, the store default currency shall be used.",
+                        "name": "currency",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "JPY",
+                            "CNY",
+                            "BRL",
+                            "EUR",
+                            "RON",
+                            "RUB",
+                            "PLN",
+                            "EGP",
+                            "USD",
+                            "KRW",
+                            "TWD",
+                            "CAD",
+                            "GBP"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "Page size. Used to limit the amount of data returned by a query. Valid values include positive integers of 1 and above. The \"pageNumber\" must be specified for paging to work.",
+                        "name": "pageSize",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Page number, starting at 1. Valid values include positive integers of 1 and above. The \"pageSize\" must be specified for paging to work.",
+                        "name": "pageNumber",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested completed successfully.",
+                        "schema": {
+                            "$ref": "#/definitions/ProductViewHandler_productsbycategory.json"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Some of the inputs provided to the request aren't valid."
+                    },
+                    "401": {
+                        "description": "Not authenticated. The user session isn't valid."
+                    },
+                    "403": {
+                        "description": "The user isn't authorized to perform the specified request."
+                    },
+                    "404": {
+                        "description": "The specified resource couldn't be found."
+                    },
+                    "500": {
+                        "description": "Internal server error. Additional details will be contained on the server logs."
+                    }
+                }
+            }
+        },
+        "/store/{storeId}/productview/byId/{productId}": {
+            "get": {
+                "tags": [
+                    "productview"
+                ],
+                "operationId": "findProductById",
+                "summary": "Gets product details based on the product ID.",
+                "produces": [
+                    "application/json",
+                    "application/xml",
+                    "application/xhtml+xml",
+                    "application/atom+xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "The store identifier.",
+                        "name": "storeId",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "0",
+                            "10001",
+                            "10051",
+                            "10101",
+                            "10151",
+                            "10201",
+                            "10202",
+                            "10701",
+                            "10751"
+                        ]
+                    },
+                    {
+                        "in": "path",
+                        "description": "The product identifier.",
+                        "name": "productId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The type of the merchandising association to be returned.",
+                        "name": "associationType",
+                        "required": false,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "description": "The attribute associated keywords to be returned.",
+                        "name": "attributeKeyword",
+                        "required": false,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "description": "The catalog identifier. If none is specified, the store default catalog shall be used.",
+                        "name": "catalogId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The contractId",
+                        "name": "contractId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The currency code to use. Example usage : currency=USD. If no currency code is specified, the store default currency shall be used.",
+                        "name": "currency",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "JPY",
+                            "CNY",
+                            "BRL",
+                            "EUR",
+                            "RON",
+                            "RUB",
+                            "PLN",
+                            "EGP",
+                            "USD",
+                            "KRW",
+                            "TWD",
+                            "CAD",
+                            "GBP"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "Option to force an entitlement check.",
+                        "name": "checkEntitlement",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The attachment filter.",
+                        "name": "attachementFilter",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested completed successfully.",
+                        "schema": {
+                            "$ref": "#/definitions/ProductViewHandler_productdetails.json"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Some of the inputs provided to the request aren't valid."
+                    },
+                    "401": {
+                        "description": "Not authenticated. The user session isn't valid."
+                    },
+                    "403": {
+                        "description": "The user isn't authorized to perform the specified request."
+                    },
+                    "404": {
+                        "description": "The specified resource couldn't be found."
+                    },
+                    "500": {
+                        "description": "Internal server error. Additional details will be contained on the server logs."
+                    }
+                }
+            }
+        },
+        "/store/{storeId}/productview/byIds": {
+            "get": {
+                "tags": [
+                    "productview"
+                ],
+                "operationId": "findProductsByIds",
+                "summary": "Gets product details based on the product ID.",
+                "produces": [
+                    "application/json",
+                    "application/xml",
+                    "application/xhtml+xml",
+                    "application/atom+xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "The store identifier.",
+                        "name": "storeId",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "0",
+                            "10001",
+                            "10051",
+                            "10101",
+                            "10151",
+                            "10201",
+                            "10202",
+                            "10701",
+                            "10751"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "The product identifiers.",
+                        "name": "id",
+                        "required": true,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "description": "The type of the merchandising association to be returned.",
+                        "name": "associationType",
+                        "required": false,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "description": "The attribute associated keywords to be returned.",
+                        "name": "attributeKeyword",
+                        "required": false,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "description": "The catalog identifier. If none is specified, the store default catalog shall be used.",
+                        "name": "catalogId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The contractId",
+                        "name": "contractId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The currency code to use. Example usage : currency=USD. If no currency code is specified, the store default currency shall be used.",
+                        "name": "currency",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "JPY",
+                            "CNY",
+                            "BRL",
+                            "EUR",
+                            "RON",
+                            "RUB",
+                            "PLN",
+                            "EGP",
+                            "USD",
+                            "KRW",
+                            "TWD",
+                            "CAD",
+                            "GBP"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "Option to force an entitlement check.",
+                        "name": "checkEntitlement",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The attachment filter.",
+                        "name": "attachementFilter",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested completed successfully.",
+                        "schema": {
+                            "$ref": "#/definitions/ProductViewHandler_productdetails.json"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Some of the inputs provided to the request aren't valid."
+                    },
+                    "401": {
+                        "description": "Not authenticated. The user session isn't valid."
+                    },
+                    "403": {
+                        "description": "The user isn't authorized to perform the specified request."
+                    },
+                    "404": {
+                        "description": "The specified resource couldn't be found."
+                    },
+                    "500": {
+                        "description": "Internal server error. Additional details will be contained on the server logs."
+                    }
+                }
+            }
+        },
+        "/store/{storeId}/productview/bySearchTerm/{searchTerm}": {
+            "get": {
+                "tags": [
+                    "productview"
+                ],
+                "operationId": "findProductsBySearchTerm",
+                "summary": "Gets product details based on a search term.",
+                "produces": [
+                    "application/json",
+                    "application/xml",
+                    "application/xhtml+xml",
+                    "application/atom+xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "The store identifier.",
+                        "name": "storeId",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "0",
+                            "10001",
+                            "10051",
+                            "10101",
+                            "10151",
+                            "10201",
+                            "10202",
+                            "10701",
+                            "10751"
+                        ]
+                    },
+                    {
+                        "in": "path",
+                        "description": "The term to search for.",
+                        "name": "searchTerm",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The type of the merchandising association to be returned.",
+                        "name": "associationType",
+                        "required": false,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "description": "The attribute associated keywords to be returned.",
+                        "name": "attributeKeyword",
+                        "required": false,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "description": "The selected facets.",
+                        "name": "facet",
+                        "required": false,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "description": "The multiple name-value pairs of facet limit defining the maximum number of items to be returned under each facet. The sequence of limits honored alongside with the sequence of facet name-value pairs.",
+                        "name": "facetLimit",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The advanced facet list.",
+                        "name": "advancedFacetList",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The filter facet.",
+                        "name": "filterFacet",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The contractId",
+                        "name": "contractId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The filter term.",
+                        "name": "filterTerm",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The manufacturer name.",
+                        "name": "manufacturer",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The minimum price. Based on the selected currency.",
+                        "name": "minPrice",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The maximum price. Based on the selected currency.mc",
+                        "name": "maxPrice",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The field name to use when ordering the results.",
+                        "name": "orderBy",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The search type is a numeric string with controls the query operator: ANY, OR, AND and control what data to be returned. For a detailed list of valid values, see the online documentation on Match type (_wcf.search.type). Known valid values include : 0: ANY (exclude SKU)1: EXACT (exclude SKU), 2: ALL (exclude SKU), 3: NONE (exclude SKU), 10: ANY (include SKU), 11: EXACT (include SKU), 12: ALL (include SKU), 13: NONE (include SKU), 100: ANY (only SKU), 101: EXACT (only SKU), 102: ALL (only SKU), 103: NONE (only SKU), 1000: ANY (include products, kits, bundles, category level SKU) (exclude product level SKU), 1001: EXACT (include products, kits, bundles, category level SKU) (exclude product level SKU), 1002: ALL (include products, kits, bundles, category level SKU) (exclude product level SKU), 1003: NONE (include products, kits, bundles, category level SKU) (exclude product level SKU), 10000: ANY (include category level SKU) (exclude products, kits, bundles, product level SKU), 10001: EXACT (include category level SKU) (exclude products, kits, bundles, product level SKU), 10002: ALL (include category level SKU) (exclude products, kits, bundles, product level SKU), 10003: NONE (include category level SKU) (exclude products, kits, bundles, product level SKU)",
+                        "name": "searchType",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The search source. The default is \"N\" for shallow search navigation. All other values will result in expanded search in sub-categories.",
+                        "name": "searchSource",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The price mode.",
+                        "name": "priceMode",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Option to force an entitlement check.",
+                        "name": "checkEntitlement",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The attachment filter.",
+                        "name": "attachementFilter",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The category identifier.",
+                        "name": "categoryId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The optional searchTerm parameter that will replace the {searchTerm} value in the context path parameter. It is used to avoid potential limitation of the special characters as being part of the context path.",
+                        "name": "searchTerm",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The value of the parameter is the term that the user intends to search. Characters are not escaped for the search engine.",
+                        "name": "intentSearchTerm",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The value of the parameter is the term that the user intends to search. Characters are escaped for the search engine.",
+                        "name": "originalSearchTerm",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Contains the input meta data string such as the previous click history of the current sequence of requests. They are passed in at all times for the purpose of invoking the marketing logic to generate the proper e-Marketing Spots. To achieve sticky behavior, a server-generated meta string is attached with all subsequent requests. This meta string contains all previously-executed search context, such as facets that have been applied. This meta string is encoded using UTF8 base64 and is therefore URL-friendly.",
+                        "name": "metaData",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Used for advanced search option. 0 - search for any match, 1 - search for exact match, 2 - search for all matches",
+                        "name": "filterType",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "0",
+                            "1",
+                            "2"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "The list of physical store identifiers.",
+                        "name": "physicalStoreIds",
+                        "required": false,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "description": "The landing page information will be returned if it is available and the value is true. By default, the value is false.",
+                        "name": "landingPage",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The catalog identifier. If none is specified, the store default catalog shall be used.",
+                        "name": "catalogId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The currency code to use. Example usage : currency=USD. If no currency code is specified, the store default currency shall be used.",
+                        "name": "currency",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "JPY",
+                            "CNY",
+                            "BRL",
+                            "EUR",
+                            "RON",
+                            "RUB",
+                            "PLN",
+                            "EGP",
+                            "USD",
+                            "KRW",
+                            "TWD",
+                            "CAD",
+                            "GBP"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "Page size. Used to limit the amount of data returned by a query. Valid values include positive integers of 1 and above. The \"pageNumber\" must be specified for paging to work.",
+                        "name": "pageSize",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Page number, starting at 1. Valid values include positive integers of 1 and above. The \"pageSize\" must be specified for paging to work.",
+                        "name": "pageNumber",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested completed successfully.",
+                        "schema": {
+                            "$ref": "#/definitions/ProductViewHandler_productsbysearchterm.json"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Some of the inputs provided to the request aren't valid."
+                    },
+                    "401": {
+                        "description": "Not authenticated. The user session isn't valid."
+                    },
+                    "403": {
+                        "description": "The user isn't authorized to perform the specified request."
+                    },
+                    "404": {
+                        "description": "The specified resource couldn't be found."
+                    },
+                    "500": {
+                        "description": "Internal server error. Additional details will be contained on the server logs."
+                    }
+                }
+            }
+        },
+        "/store/{storeId}/productview/byPartNumbers": {
+            "get": {
+                "tags": [
+                    "productview"
+                ],
+                "operationId": "findProductByPartNumbers",
+                "summary": "Gets products by part numbers.",
+                "produces": [
+                    "application/json",
+                    "application/xml",
+                    "application/xhtml+xml",
+                    "application/atom+xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "The store identifier.",
+                        "name": "storeId",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "0",
+                            "10001",
+                            "10051",
+                            "10101",
+                            "10151",
+                            "10201",
+                            "10202",
+                            "10701",
+                            "10751"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "The product part numbers.",
+                        "name": "partNumber",
+                        "required": true,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "description": "The type of the merchandising association to be returned.",
+                        "name": "associationType",
+                        "required": false,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "description": "The catalog identifier. If none is specified, the store default catalog shall be used.",
+                        "name": "catalogId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The currency code to use. Example usage : currency=USD. If no currency code is specified, the store default currency shall be used.",
+                        "name": "currency",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "JPY",
+                            "CNY",
+                            "BRL",
+                            "EUR",
+                            "RON",
+                            "RUB",
+                            "PLN",
+                            "EGP",
+                            "USD",
+                            "KRW",
+                            "TWD",
+                            "CAD",
+                            "GBP"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "The contractId",
+                        "name": "contractId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Option to force an entitlement check.",
+                        "name": "checkEntitlement",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The attachment filter.",
+                        "name": "attachementFilter",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested completed successfully.",
+                        "schema": {
+                            "$ref": "#/definitions/ProductViewHandler_productdetails.json"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Some of the inputs provided to the request aren't valid."
+                    },
+                    "401": {
+                        "description": "Not authenticated. The user session isn't valid."
+                    },
+                    "403": {
+                        "description": "The user isn't authorized to perform the specified request."
+                    },
+                    "404": {
+                        "description": "The specified resource couldn't be found."
+                    },
+                    "500": {
+                        "description": "Internal server error. Additional details will be contained on the server logs."
+                    }
+                }
+            }
+        },
+        "/store/{storeId}/productview/{partNumber}": {
+            "get": {
+                "tags": [
+                    "productview"
+                ],
+                "operationId": "findProductByPartNumber",
+                "summary": "Gets products by part number.",
+                "produces": [
+                    "application/json",
+                    "application/xml",
+                    "application/xhtml+xml",
+                    "application/atom+xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "The store identifier.",
+                        "name": "storeId",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "0",
+                            "10001",
+                            "10051",
+                            "10101",
+                            "10151",
+                            "10201",
+                            "10202",
+                            "10701",
+                            "10751"
+                        ]
+                    },
+                    {
+                        "in": "path",
+                        "description": "The product part number.",
+                        "name": "partNumber",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The type of the merchandising association to be returned.",
+                        "name": "associationType",
+                        "required": false,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "description": "The attribute associated keywords to be returned.",
+                        "name": "attributeKeyword",
+                        "required": false,
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "description": "The catalog identifier. If none is specified, the store default catalog shall be used.",
+                        "name": "catalogId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The contractId",
+                        "name": "contractId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The currency code to use. Example usage : currency=USD. If no currency code is specified, the store default currency shall be used.",
+                        "name": "currency",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "JPY",
+                            "CNY",
+                            "BRL",
+                            "EUR",
+                            "RON",
+                            "RUB",
+                            "PLN",
+                            "EGP",
+                            "USD",
+                            "KRW",
+                            "TWD",
+                            "CAD",
+                            "GBP"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "Option to force an entitlement check.",
+                        "name": "checkEntitlement",
+                        "required": false,
+                        "type": "boolean"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The attachment filter.",
+                        "name": "attachementFilter",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested completed successfully.",
+                        "schema": {
+                            "$ref": "#/definitions/ProductViewHandler_productdetails.json"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Some of the inputs provided to the request aren't valid."
+                    },
+                    "401": {
+                        "description": "Not authenticated. The user session isn't valid."
+                    },
+                    "403": {
+                        "description": "The user isn't authorized to perform the specified request."
+                    },
+                    "404": {
+                        "description": "The specified resource couldn't be found."
+                    },
+                    "500": {
+                        "description": "Internal server error. Additional details will be contained on the server logs."
+                    }
+                }
+            }
+        },
+        "/store/{storeId}/sitecontent/webContentsBySearchTerm/{searchTerm}": {
+            "get": {
+                "tags": [
+                    "sitecontent"
+                ],
+                "operationId": "findWebContentsBySearchTerm",
+                "summary": "Search unstructured content details for search result page based on a search term.",
+                "produces": [
+                    "application/json",
+                    "application/xml",
+                    "application/xhtml+xml",
+                    "application/atom+xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "The store identifier.",
+                        "name": "storeId",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "0",
+                            "10001",
+                            "10051",
+                            "10101",
+                            "10151",
+                            "10201",
+                            "10202",
+                            "10701",
+                            "10751"
+                        ]
+                    },
+                    {
+                        "in": "path",
+                        "description": "The term to search for.",
+                        "name": "searchTerm",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The selected facets.",
+                        "name": "facet",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The multiple name-value pairs of facet limit defining the maximum number of items to be returned under each facet. The sequence of limits honored alongside with the sequence of facet name-value pairs.",
+                        "name": "facetLimit",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The field name to use when ordering the results.",
+                        "name": "orderBy",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The catalog identifier. If none is specified, the store default catalog shall be used.",
+                        "name": "catalogId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Page size. Used to limit the amount of data returned by a query. Valid values include positive integers of 1 and above. The \"pageNumber\" must be specified for paging to work.",
+                        "name": "pageSize",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Page number, starting at 1. Valid values include positive integers of 1 and above. The \"pageSize\" must be specified for paging to work.",
+                        "name": "pageNumber",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested completed successfully.",
+                        "schema": {
+                            "$ref": "#/definitions/SiteContentHandler_sitecontent.json"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Some of the inputs provided to the request aren't valid."
+                    },
+                    "401": {
+                        "description": "Not authenticated. The user session isn't valid."
+                    },
+                    "403": {
+                        "description": "The user isn't authorized to perform the specified request."
+                    },
+                    "404": {
+                        "description": "The specified resource couldn't be found."
+                    },
+                    "500": {
+                        "description": "Internal server error. Additional details will be contained on the server logs."
+                    }
+                }
+            }
+        },
+        "/store/{storeId}/sitecontent/suggestions": {
+            "get": {
+                "tags": [
+                    "sitecontent"
+                ],
+                "operationId": "findSuggestions",
+                "summary": "Provides suggestions with type-ahead for search result page.",
+                "produces": [
+                    "application/json",
+                    "application/xml",
+                    "application/xhtml+xml",
+                    "application/atom+xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "The store identifier.",
+                        "name": "storeId",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "0",
+                            "10001",
+                            "10051",
+                            "10101",
+                            "10151",
+                            "10201",
+                            "10202",
+                            "10701",
+                            "10751"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "The suggestion type. Accepted values are 'Category', 'Brand', 'Articles', 'Keyword', and 'Product'.",
+                        "name": "suggestType",
+                        "required": false,
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "Category",
+                                "Brand",
+                                "Articles",
+                                "Keyword",
+                                "Product"
+                            ]
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "description": "The search term.",
+                        "name": "term",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Limit.",
+                        "name": "limit",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The number of suggested keywords to be returned. The default value is 4.",
+                        "name": "count",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The contractId",
+                        "name": "contractId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The sorting to be used in the returned result, \"count\" or \"index\". By default, it is \"count\".",
+                        "name": "termsSort",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "count",
+                            "index"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "The catalog identifier. If none is specified, the store default catalog shall be used.",
+                        "name": "catalogId",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested completed successfully.",
+                        "schema": {
+                            "$ref": "#/definitions/SiteContentHandler_webcontent.json"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Some of the inputs provided to the request aren't valid."
+                    },
+                    "401": {
+                        "description": "Not authenticated. The user session isn't valid."
+                    },
+                    "403": {
+                        "description": "The user isn't authorized to perform the specified request."
+                    },
+                    "404": {
+                        "description": "The specified resource couldn't be found."
+                    },
+                    "500": {
+                        "description": "Internal server error. Additional details will be contained on the server logs."
+                    }
+                }
+            }
+        },
+        "/store/{storeId}/sitecontent/keywordSuggestionsByTerm/{term}": {
+            "get": {
+                "tags": [
+                    "sitecontent"
+                ],
+                "operationId": "findKeywordSuggestionsByTerm",
+                "summary": "Provides keyword suggestions with type-ahead for search result page based on a term.",
+                "produces": [
+                    "application/json",
+                    "application/xml",
+                    "application/xhtml+xml",
+                    "application/atom+xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "The store identifier.",
+                        "name": "storeId",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "0",
+                            "10001",
+                            "10051",
+                            "10101",
+                            "10151",
+                            "10201",
+                            "10202",
+                            "10701",
+                            "10751"
+                        ]
+                    },
+                    {
+                        "in": "path",
+                        "description": "The search term.",
+                        "name": "term",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Limit.",
+                        "name": "limit",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The number of suggested keywords to be returned. The default value is 4.",
+                        "name": "count",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The contractId",
+                        "name": "contractId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The sorting to be used in the returned result, \"count\" or \"index\". By default, it is \"count\".",
+                        "name": "termsSort",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "count",
+                            "index"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "The catalog identifier. If none is specified, the store default catalog shall be used.",
+                        "name": "catalogId",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested completed successfully.",
+                        "schema": {
+                            "$ref": "#/definitions/SiteContentHandler_keyword.json"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Some of the inputs provided to the request aren't valid."
+                    },
+                    "401": {
+                        "description": "Not authenticated. The user session isn't valid."
+                    },
+                    "403": {
+                        "description": "The user isn't authorized to perform the specified request."
+                    },
+                    "404": {
+                        "description": "The specified resource couldn't be found."
+                    },
+                    "500": {
+                        "description": "Internal server error. Additional details will be contained on the server logs."
+                    }
+                }
+            }
+        },
+        "/store/{storeId}/sitecontent/categorySuggestions": {
+            "get": {
+                "tags": [
+                    "sitecontent"
+                ],
+                "operationId": "findCategorySuggestions",
+                "summary": "Provides suggestions with type-ahead for search result page.",
+                "produces": [
+                    "application/json",
+                    "application/xml",
+                    "application/xhtml+xml",
+                    "application/atom+xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "The store identifier.",
+                        "name": "storeId",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "0",
+                            "10001",
+                            "10051",
+                            "10101",
+                            "10151",
+                            "10201",
+                            "10202",
+                            "10701",
+                            "10751"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "Limit.",
+                        "name": "limit",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The number of suggested keywords to be returned. The default value is 4.",
+                        "name": "count",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The contractId",
+                        "name": "contractId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The sorting to be used in the returned result, \"count\" or \"index\". By default, it is \"count\".",
+                        "name": "termsSort",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "count",
+                            "index"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "The catalog identifier. If none is specified, the store default catalog shall be used.",
+                        "name": "catalogId",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested completed successfully.",
+                        "schema": {
+                            "$ref": "#/definitions/SiteContentHandler_category.json"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Some of the inputs provided to the request aren't valid."
+                    },
+                    "401": {
+                        "description": "Not authenticated. The user session isn't valid."
+                    },
+                    "403": {
+                        "description": "The user isn't authorized to perform the specified request."
+                    },
+                    "404": {
+                        "description": "The specified resource couldn't be found."
+                    },
+                    "500": {
+                        "description": "Internal server error. Additional details will be contained on the server logs."
+                    }
+                }
+            }
+        },
+        "/store/{storeId}/sitecontent/brandSuggestions": {
+            "get": {
+                "tags": [
+                    "sitecontent"
+                ],
+                "operationId": "findBrandSuggestions",
+                "summary": "Provides suggestions with type-ahead for search result page.",
+                "produces": [
+                    "application/json",
+                    "application/xml",
+                    "application/xhtml+xml",
+                    "application/atom+xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "The store identifier.",
+                        "name": "storeId",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "0",
+                            "10001",
+                            "10051",
+                            "10101",
+                            "10151",
+                            "10201",
+                            "10202",
+                            "10701",
+                            "10751"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "Limit.",
+                        "name": "limit",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The number of suggested keywords to be returned. The default value is 4.",
+                        "name": "count",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The contractId",
+                        "name": "contractId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The sorting to be used in the returned result, \"count\" or \"index\". By default, it is \"count\".",
+                        "name": "termsSort",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "count",
+                            "index"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "The catalog identifier. If none is specified, the store default catalog shall be used.",
+                        "name": "catalogId",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested completed successfully.",
+                        "schema": {
+                            "$ref": "#/definitions/SiteContentHandler_brand.json"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Some of the inputs provided to the request aren't valid."
+                    },
+                    "401": {
+                        "description": "Not authenticated. The user session isn't valid."
+                    },
+                    "403": {
+                        "description": "The user isn't authorized to perform the specified request."
+                    },
+                    "404": {
+                        "description": "The specified resource couldn't be found."
+                    },
+                    "500": {
+                        "description": "Internal server error. Additional details will be contained on the server logs."
+                    }
+                }
+            }
+        },
+        "/store/{storeId}/sitecontent/customSuggestions": {
+            "get": {
+                "tags": [
+                    "sitecontent"
+                ],
+                "operationId": "findCustomSuggestions",
+                "summary": "Provides suggestions with type-ahead for search result page.",
+                "produces": [
+                    "application/json",
+                    "application/xml",
+                    "application/xhtml+xml",
+                    "application/atom+xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "storeId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Limit.",
+                        "name": "limit",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The number of suggested keywords to be returned. The default value is 4.",
+                        "name": "count",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Page size. Used to limit the amount of data returned by a query. Valid values include positive integers of 1 and above. The \"pageNumber\" must be specified for paging to work.",
+                        "name": "pageSize",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Page number, starting at 1. Valid values include positive integers of 1 and above. The \"pageSize\" must be specified for paging to work.",
+                        "name": "pageNumber",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The search type is a numeric string with controls the query operator: ANY, OR, AND and control what data to be returned. For a detailed list of valid values, see the online documentation on Match type (_wcf.search.type). Known valid values include : 0: ANY (exclude SKU)1: EXACT (exclude SKU), 2: ALL (exclude SKU), 3: NONE (exclude SKU), 10: ANY (include SKU), 11: EXACT (include SKU), 12: ALL (include SKU), 13: NONE (include SKU), 100: ANY (only SKU), 101: EXACT (only SKU), 102: ALL (only SKU), 103: NONE (only SKU), 1000: ANY (include products, kits, bundles, category level SKU) (exclude product level SKU), 1001: EXACT (include products, kits, bundles, category level SKU) (exclude product level SKU), 1002: ALL (include products, kits, bundles, category level SKU) (exclude product level SKU), 1003: NONE (include products, kits, bundles, category level SKU) (exclude product level SKU), 10000: ANY (include category level SKU) (exclude products, kits, bundles, product level SKU), 10001: EXACT (include category level SKU) (exclude products, kits, bundles, product level SKU), 10002: ALL (include category level SKU) (exclude products, kits, bundles, product level SKU), 10003: NONE (include category level SKU) (exclude products, kits, bundles, product level SKU)",
+                        "name": "searchType",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The contractId",
+                        "name": "contractId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The search term.",
+                        "name": "term",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The sorting to be used in the returned result, \"count\" or \"index\". By default, it is \"count\".",
+                        "name": "termsSort",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "count",
+                            "index"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "The catalog identifier. If none is specified, the store default catalog shall be used.",
+                        "name": "catalogId",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested completed successfully.",
+                        "schema": {
+                            "$ref": "#/definitions/SiteContentHandler_custom.json"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Some of the inputs provided to the request aren't valid."
+                    },
+                    "401": {
+                        "description": "Not authenticated. The user session isn't valid."
+                    },
+                    "403": {
+                        "description": "The user isn't authorized to perform the specified request."
+                    },
+                    "404": {
+                        "description": "The specified resource couldn't be found."
+                    },
+                    "500": {
+                        "description": "Internal server error. Additional details will be contained on the server logs."
+                    }
+                }
+            }
+        },
+        "/store/{storeId}/sitecontent/webContentSuggestions": {
+            "get": {
+                "tags": [
+                    "sitecontent"
+                ],
+                "operationId": "findWebContentSuggestions",
+                "summary": "Provides suggestions with type-ahead for search result page.",
+                "produces": [
+                    "application/json",
+                    "application/xml",
+                    "application/xhtml+xml",
+                    "application/atom+xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "The store identifier.",
+                        "name": "storeId",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "0",
+                            "10001",
+                            "10051",
+                            "10101",
+                            "10151",
+                            "10201",
+                            "10202",
+                            "10701",
+                            "10751"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "Limit.",
+                        "name": "limit",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The number of suggested keywords to be returned. The default value is 4.",
+                        "name": "count",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The sorting to be used in the returned result, \"count\" or \"index\". By default, it is \"count\".",
+                        "name": "termsSort",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "count",
+                            "index"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "The catalog identifier. If none is specified, the store default catalog shall be used.",
+                        "name": "catalogId",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested completed successfully.",
+                        "schema": {
+                            "$ref": "#/definitions/SiteContentHandler_webcontentsuggestions.json"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Some of the inputs provided to the request aren't valid."
+                    },
+                    "401": {
+                        "description": "Not authenticated. The user session isn't valid."
+                    },
+                    "403": {
+                        "description": "The user isn't authorized to perform the specified request."
+                    },
+                    "404": {
+                        "description": "The specified resource couldn't be found."
+                    },
+                    "500": {
+                        "description": "Internal server error. Additional details will be contained on the server logs."
+                    }
+                }
+            }
+        },
+        "/store/{storeId}/sitecontent/productSuggestionsBySearchTerm/{searchTerm}": {
+            "get": {
+                "tags": [
+                    "sitecontent"
+                ],
+                "operationId": "findProductSuggestionsBySearchTerm",
+                "summary": "Provides suggestions with type-ahead for search result page.",
+                "produces": [
+                    "application/json",
+                    "application/xml",
+                    "application/xhtml+xml",
+                    "application/atom+xml"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "The store identifier.",
+                        "name": "storeId",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "0",
+                            "10001",
+                            "10051",
+                            "10101",
+                            "10151",
+                            "10201",
+                            "10202",
+                            "10701",
+                            "10751"
+                        ]
+                    },
+                    {
+                        "in": "path",
+                        "description": "The term to search for.",
+                        "name": "searchTerm",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Page size. Used to limit the amount of data returned by a query. Valid values include positive integers of 1 and above. The \"pageNumber\" must be specified for paging to work.",
+                        "name": "pageSize",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Page number, starting at 1. Valid values include positive integers of 1 and above. The \"pageSize\" must be specified for paging to work.",
+                        "name": "pageNumber",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The search type is a numeric string with controls the query operator: ANY, OR, AND and control what data to be returned. For a detailed list of valid values, see the online documentation on Match type (_wcf.search.type). Known valid values include : 0: ANY (exclude SKU)1: EXACT (exclude SKU), 2: ALL (exclude SKU), 3: NONE (exclude SKU), 10: ANY (include SKU), 11: EXACT (include SKU), 12: ALL (include SKU), 13: NONE (include SKU), 100: ANY (only SKU), 101: EXACT (only SKU), 102: ALL (only SKU), 103: NONE (only SKU), 1000: ANY (include products, kits, bundles, category level SKU) (exclude product level SKU), 1001: EXACT (include products, kits, bundles, category level SKU) (exclude product level SKU), 1002: ALL (include products, kits, bundles, category level SKU) (exclude product level SKU), 1003: NONE (include products, kits, bundles, category level SKU) (exclude product level SKU), 10000: ANY (include category level SKU) (exclude products, kits, bundles, product level SKU), 10001: EXACT (include category level SKU) (exclude products, kits, bundles, product level SKU), 10002: ALL (include category level SKU) (exclude products, kits, bundles, product level SKU), 10003: NONE (include category level SKU) (exclude products, kits, bundles, product level SKU)",
+                        "name": "searchType",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The search term.",
+                        "name": "term",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The contractId",
+                        "name": "contractId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "The sorting to be used in the returned result, \"count\" or \"index\". By default, it is \"count\".",
+                        "name": "termsSort",
+                        "required": false,
+                        "type": "string",
+                        "enum": [
+                            "count",
+                            "index"
+                        ]
+                    },
+                    {
+                        "in": "query",
+                        "description": "The catalog identifier. If none is specified, the store default catalog shall be used.",
+                        "name": "catalogId",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Option to force an entitlement check.",
+                        "name": "checkEntitlement",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The requested completed successfully.",
+                        "schema": {
+                            "$ref": "#/definitions/SiteContentHandler_product.json"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad request. Some of the inputs provided to the request aren't valid."
+                    },
+                    "401": {
+                        "description": "Not authenticated. The user session isn't valid."
+                    },
+                    "403": {
+                        "description": "The user isn't authorized to perform the specified request."
+                    },
+                    "404": {
+                        "description": "The specified resource couldn't be found."
+                    },
+                    "500": {
+                        "description": "Internal server error. Additional details will be contained on the server logs."
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Empty": {
+            "description": "Empty model. Used as default value when no model is specified."
+        },
+        "com.ibm.commerce.rest.api.handler.ApiHandler$ResourceDescription": {
+            "description": "Description of a resource and its APIs.",
+            "required": [
+                "basePath",
+                "apiVersion",
+                "swaggerVersion"
+            ],
+            "properties": {
+                "models": {
+                    "$ref": "#/definitions/com.ibm.commerce.rest.api.handler.ApiHandler$ModelDescriptionContainer",
+                    "description": "List of models used by the APIs."
+                },
+                "basePath": {
+                    "type": "string",
+                    "description": "URL at which the resource may be reached. Used as a base for contained APIs."
+                },
+                "apiVersion": {
+                    "type": "string",
+                    "description": "Version of the API."
+                },
+                "resourcePath": {
+                    "type": "string",
+                    "description": "Resource path."
+                },
+                "swaggerVersion": {
+                    "type": "string",
+                    "description": "Version of the Swagger specification."
+                },
+                "apis": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/com.ibm.commerce.rest.api.handler.ApiHandler$ApiDescription"
+                    },
+                    "description": "List of available APIs."
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Resource description."
+                }
+            }
+        },
+        "com.ibm.commerce.rest.api.handler.ApiHandler$ModelDescription": {
+            "description": "Model description.",
+            "required": [
+                "id"
+            ],
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "Name of the model."
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Description of the model."
+                },
+                "properties": {
+                    "$ref": "#/definitions/com.ibm.commerce.rest.api.handler.ApiHandler$ModelPropertyDescriptionContainer",
+                    "description": "List of properties in the model."
+                }
+            }
+        },
+        "com.ibm.commerce.rest.api.handler.ApiHandler$ModelPropertyDescription": {
+            "description": "Description of a property used in a model.",
+            "properties": {
+                "ref": {
+                    "type": "string",
+                    "description": "Name of a \"model\" used by the property."
+                },
+                "items": {
+                    "$ref": "#/definitions/com.ibm.commerce.rest.api.handler.ApiHandler$ModelPropertyDescription",
+                    "description": "If the \"type\" is set to \"array\", this field will describe the objects contained within the array."
+                },
+                "enum": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Defines the list of acceptable values for the field. Only present if specific values must be used."
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Type of property. Only defined when the property is a basic types. References to other models will use the \"$ref\" value."
+                },
+                "required": {
+                    "type": "boolean",
+                    "description": "Indicates if the property must always be present in the model."
+                }
+            }
+        },
+        "com.ibm.commerce.rest.api.handler.ApiHandler$ErrorResponseDescription": {
+            "description": "Description of a potential error response.",
+            "required": [
+                "code"
+            ],
+            "properties": {
+                "reason": {
+                    "type": "string",
+                    "description": "The reason why this code might be returned."
+                },
+                "code": {
+                    "type": "string",
+                    "description": "The HTTP code returned from the request."
+                }
+            }
+        },
+        "com.ibm.commerce.rest.api.handler.ApiHandler$OperationDescription": {
+            "description": "Description of an operation.",
+            "required": [
+                "method"
+            ],
+            "properties": {
+                "summary": {
+                    "type": "string",
+                    "description": "Summary description of the operation."
+                },
+                "secureCallMandatory": {
+                    "type": "boolean",
+                    "description": "This flag indicates if the use of Secure HTTP (HTTPS) is mandatory to call this API. This is an application specific extension to the swagger specification."
+                },
+                "nickname": {
+                    "type": "string",
+                    "description": "Short nickname for the operation."
+                },
+                "errorResponses": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/com.ibm.commerce.rest.api.handler.ApiHandler$ErrorResponseDescription"
+                    },
+                    "description": "List of potential errors returned by this API."
+                },
+                "produces": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List the types of data that can be used in the \"accept\" HTTP header."
+                },
+                "method": {
+                    "type": "string",
+                    "description": "HTTP method used to perform the operation."
+                },
+                "parameters": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/com.ibm.commerce.rest.api.handler.ApiHandler$OperationParameterDescription"
+                    },
+                    "description": "List parameters used by the operation."
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Name of the model returned by this opeartion."
+                },
+                "notes": {
+                    "type": "string",
+                    "description": "Detailed utilisation notes applicable to the operations."
+                },
+                "consumes": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List the types of data that can be used in the \"content-type\" HTTP header."
+                },
+                "partialAuthenticationAllowed": {
+                    "type": "boolean",
+                    "description": "This flag indicates if partially authenticated users are allowed to call this API. This is an application specific extension to the swagger specification."
+                }
+            }
+        },
+        "com.ibm.commerce.rest.api.handler.ApiHandler$ApiDescription": {
+            "description": "Description of an API and its operations.",
+            "required": [
+                "path"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "API description."
+                },
+                "path": {
+                    "type": "string",
+                    "description": "URL path fragment to readh the API. This is appended to the resource basepath."
+                },
+                "operations": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/com.ibm.commerce.rest.api.handler.ApiHandler$OperationDescription"
+                    },
+                    "description": "List of available operations."
+                }
+            }
+        },
+        "com.ibm.commerce.rest.api.handler.ApiHandler$ResourceLinkList": {
+            "description": "List of resource links and their description.",
+            "required": [
+                "apiVersion",
+                "swaggerVersion",
+                "apis"
+            ],
+            "properties": {
+                "apiVersion": {
+                    "type": "string",
+                    "description": "Version of the API."
+                },
+                "swaggerVersion": {
+                    "type": "string",
+                    "description": "Version of the Swagger specification."
+                },
+                "apis": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/com.ibm.commerce.rest.api.handler.ApiHandler$ResouceLink"
+                    },
+                    "description": "List of links to available resources."
+                }
+            }
+        },
+        "com.ibm.commerce.rest.api.handler.ApiHandler$ModelPropertyDescriptionContainer": {
+            "description": "This object lists the \"model property descriptions\" used by the model. Each \"model property description\" is contained in a property where the property name matches the name of the \"model property\".",
+            "required": [
+                "sample"
+            ],
+            "properties": {
+                "sample": {
+                    "$ref": "#/definitions/com.ibm.commerce.rest.api.handler.ApiHandler$ModelPropertyDescription",
+                    "description": "Sample model property description."
+                }
+            }
+        },
+        "com.ibm.commerce.rest.api.handler.ApiHandler$OperationParameterDescription": {
+            "description": "Description of an operation parameter.",
+            "required": [
+                "name",
+                "type",
+                "paramType"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "Description of the parameter."
+                },
+                "name": {
+                    "type": "string",
+                    "description": "Name of the parameter"
+                },
+                "allowMultiple": {
+                    "type": "boolean",
+                    "description": "For query parameters, this indicates if the parameter may be repeated multiple times. Defaults to false."
+                },
+                "enum": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "List of acceptable values. Only defined if the acceptable values are limited."
+                },
+                "format": {
+                    "type": "string",
+                    "description": "Format of the data. This is a swagger specific extension that adds rules to the type. Sample values include \"int32\" and \"int64\" for the integer type."
+                },
+                "required": {
+                    "type": "boolean",
+                    "description": "Is the parameter required or not."
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Type of the field. Must match one of the JSON-Schema supported types. Can be used to reference a model."
+                },
+                "paramType": {
+                    "type": "string",
+                    "enum": [
+                        "query",
+                        "path",
+                        "body",
+                        "header"
+                    ],
+                    "description": "Type of parameter. Either a URL \"query\", a URL \"path\", request \"header\" or a request \"body\"."
+                }
+            }
+        },
+        "com.ibm.commerce.rest.api.handler.ApiHandler$ResouceLink": {
+            "description": "Link and description of a resource.",
+            "required": [
+                "path"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "description": "Description of the resource."
+                },
+                "path": {
+                    "type": "string",
+                    "description": "URL where the API meta-data may be reached."
+                }
+            }
+        },
+        "com.ibm.commerce.rest.api.handler.ApiHandler$ModelDescriptionContainer": {
+            "description": "This object lists the models used by the operations. Each model is contained in a property where the property name matches the name of the model.",
+            "properties": {
+                "sample": {
+                    "$ref": "#/definitions/com.ibm.commerce.rest.api.handler.ApiHandler$ModelDescription",
+                    "description": "Sample model description."
+                }
+            }
+        },
+        "CategoryViewHandler_topcategories.json": {
+            "properties": {
+                "recordSetTotal": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "recordSetCount": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "resourceId": {
+                    "type": "string"
+                },
+                "recordSetComplete": {
+                    "type": "string"
+                },
+                "recordSetStartNumber": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "catalogGroupView": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/CategoryViewHandler_topcategories.json.catalogGroupView"
+                    }
+                },
+                "metaData": {
+                    "$ref": "#/definitions/CategoryViewHandler_topcategories.json.metaData"
+                },
+                "resourceName": {
+                    "type": "string"
+                }
+            }
+        },
+        "CategoryViewHandler_categoryresult.json": {
+            "properties": {
+                "recordSetTotal": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "recordSetCount": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "resourceId": {
+                    "type": "string"
+                },
+                "recordSetComplete": {
+                    "type": "string"
+                },
+                "recordSetStartNumber": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "catalogGroupView": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/CategoryViewHandler_categoryresult.json.catalogGroupView"
+                    }
+                },
+                "metaData": {
+                    "$ref": "#/definitions/CategoryViewHandler_categoryresult.json.metaData"
+                },
+                "resourceName": {
+                    "type": "string"
+                }
+            }
+        },
+        "CategoryViewHandler_categoriesresult.json.catalogGroupView": {
+            "properties": {
+                "resourceId": {
+                    "type": "string"
+                },
+                "productsURL": {
+                    "type": "string"
+                },
+                "thumbnail": {
+                    "type": "string"
+                },
+                "shortDescription": {
+                    "type": "string"
+                },
+                "parentCatalogGroupID": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "childCatalogGroupID": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "uniqueID": {
+                    "type": "string"
+                },
+                "storeID": {
+                    "type": "string"
+                },
+                "identifier": {
+                    "type": "string"
+                },
+                "fullImage": {
+                    "type": "string"
+                }
+            }
+        },
+        "CategoryViewHandler_topcategories.json.catalogGroupView": {
+            "properties": {
+                "resourceId": {
+                    "type": "string"
+                },
+                "productsURL": {
+                    "type": "string"
+                },
+                "thumbnail": {
+                    "type": "string"
+                },
+                "shortDescription": {
+                    "type": "string"
+                },
+                "parentCatalogGroupID": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "childCatalogGroupID": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "uniqueID": {
+                    "type": "string"
+                },
+                "storeID": {
+                    "type": "string"
+                },
+                "identifier": {
+                    "type": "string"
+                }
+            }
+        },
+        "CategoryViewHandler_topcategories.json.metaData": {
+            "properties": {
+                "price": {
+                    "type": "string"
+                }
+            }
+        },
+        "CategoryViewHandler_categoryresult.json.catalogGroupView": {
+            "properties": {
+                "resourceId": {
+                    "type": "string"
+                },
+                "productsURL": {
+                    "type": "string"
+                },
+                "thumbnail": {
+                    "type": "string"
+                },
+                "shortDescription": {
+                    "type": "string"
+                },
+                "parentCatalogGroupID": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "childCatalogGroupID": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "uniqueID": {
+                    "type": "string"
+                },
+                "storeID": {
+                    "type": "string"
+                },
+                "identifier": {
+                    "type": "string"
+                },
+                "fullImage": {
+                    "type": "string"
+                }
+            }
+        },
+        "CategoryViewHandler_categoriesresult.json": {
+            "properties": {
+                "recordSetTotal": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "recordSetCount": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "resourceId": {
+                    "type": "string"
+                },
+                "recordSetComplete": {
+                    "type": "string"
+                },
+                "recordSetStartNumber": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "catalogGroupView": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/CategoryViewHandler_categoriesresult.json.catalogGroupView"
+                    }
+                },
+                "metaData": {
+                    "$ref": "#/definitions/CategoryViewHandler_categoriesresult.json.metaData"
+                },
+                "resourceName": {
+                    "type": "string"
+                }
+            }
+        },
+        "CategoryViewHandler_categoryresult.json.metaData": {
+            "properties": {
+                "price": {
+                    "type": "string"
+                }
+            }
+        },
+        "CategoryViewHandler_categoriesresult.json.metaData": {
+            "properties": {
+                "price": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProductViewHandler_productsbysearchterm.json.facetView.entry.extendedData": {
+            "properties": {
+                "parentIds": {
+                    "type": "string"
+                },
+                "uniqueId": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProductViewHandler_productdetails.json.metaData": {
+            "properties": {
+                "spellcheck": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "price": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProductViewHandler_productsbysearchterm.json.catalogEntryView": {
+            "properties": {
+                "resourceId": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ProductViewHandler_productsbysearchterm.json.catalogEntryView.price"
+                    }
+                },
+                "thumbnail": {
+                    "type": "string"
+                },
+                "catalogEntryTypeCode": {
+                    "type": "string"
+                },
+                "shortDescription": {
+                    "type": "string"
+                },
+                "manufacturer": {
+                    "type": "string"
+                },
+                "parentCatalogGroupID": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "buyable": {
+                    "type": "string"
+                },
+                "uniqueID": {
+                    "type": "string"
+                },
+                "storeID": {
+                    "type": "string"
+                },
+                "attributes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ProductViewHandler_productsbysearchterm.json.catalogEntryView.attributes"
+                    }
+                },
+                "metaData": {
+                    "$ref": "#/definitions/ProductViewHandler_productsbysearchterm.json.catalogEntryView.metaData"
+                },
+                "partNumber": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProductViewHandler_productsbysearchterm.json.metaData": {
+            "properties": {
+                "spellcheck": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "price": {
+                    "type": "string"
+                },
+                "previewReport": {
+                    "$ref": "#/definitions/ProductViewHandler_productsbysearchterm.json.metaData.previewReport"
+                }
+            }
+        },
+        "ProductViewHandler_productsbycategory.json.facetView": {
+            "properties": {
+                "extendedData": {
+                    "$ref": "#/definitions/ProductViewHandler_productsbycategory.json.facetView.extendedData"
+                },
+                "entry": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ProductViewHandler_productsbycategory.json.facetView.entry"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProductViewHandler_productdetails.json.catalogEntryView.metaData": {
+            "properties": {
+                "score": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProductViewHandler_productsbycategory.json.catalogEntryView.metaData": {
+            "properties": {
+                "score": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProductViewHandler_productsbycategory.json.facetView.entry": {
+            "properties": {
+                "extendedData": {
+                    "$ref": "#/definitions/ProductViewHandler_productsbycategory.json.facetView.entry.extendedData"
+                },
+                "count": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "value": {
+                    "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProductViewHandler_productsbycategory.json.metaData": {
+            "properties": {
+                "price": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProductViewHandler_productdetails.json.catalogEntryView.attributes.values": {
+            "properties": {
+                "sequence": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                },
+                "uniqueID": {
+                    "type": "string"
+                },
+                "identifier": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProductViewHandler_productsbysearchterm.json.catalogEntryView.metaData": {
+            "properties": {
+                "score": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProductViewHandler_productsbycategory.json": {
+            "properties": {
+                "recordSetTotal": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "recordSetCount": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "resourceId": {
+                    "type": "string"
+                },
+                "facetView": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ProductViewHandler_productsbycategory.json.facetView"
+                    }
+                },
+                "catalogEntryView": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ProductViewHandler_productsbycategory.json.catalogEntryView"
+                    }
+                },
+                "recordSetComplete": {
+                    "type": "string"
+                },
+                "recordSetStartNumber": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "metaData": {
+                    "$ref": "#/definitions/ProductViewHandler_productsbycategory.json.metaData"
+                },
+                "resourceName": {
+                    "type": "string"
+                },
+                "breadCrumbTrailEntryView": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ProductViewHandler_productsbycategory.json.breadCrumbTrailEntryView"
+                    }
+                }
+            }
+        },
+        "ProductViewHandler_productsbysearchterm.json.catalogEntryView.attributes.values": {
+            "properties": {
+                "sequence": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                },
+                "uniqueID": {
+                    "type": "string"
+                },
+                "identifier": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProductViewHandler_productsbysearchterm.json.catalogEntryView.price": {
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                },
+                "usage": {
+                    "type": "string"
+                },
+                "currency": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProductViewHandler_productdetails.json.catalogEntryView.attributes": {
+            "properties": {
+                "storeDisplay": {
+                    "type": "boolean"
+                },
+                "values": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ProductViewHandler_productdetails.json.catalogEntryView.attributes.values"
+                    }
+                },
+                "sequence": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "usage": {
+                    "type": "string"
+                },
+                "uniqueID": {
+                    "type": "string"
+                },
+                "comparable": {
+                    "type": "boolean"
+                },
+                "displayable": {
+                    "type": "boolean"
+                },
+                "identifier": {
+                    "type": "string"
+                },
+                "facetable": {
+                    "type": "boolean"
+                },
+                "searchable": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "ProductViewHandler_productsbysearchterm.json.facetView.extendedData": {
+            "properties": {
+                "displaySequence": {
+                    "type": "string"
+                },
+                "srchattridentifier": {
+                    "type": "string"
+                },
+                "group_id": {
+                    "type": "string"
+                },
+                "allValuesReturned": {
+                    "type": "string"
+                },
+                "max_display": {
+                    "type": "string"
+                },
+                "zero_display": {
+                    "type": "string"
+                },
+                "propertyvalue": {
+                    "type": "string"
+                },
+                "maximumValuesToDisplay": {
+                    "type": "string"
+                },
+                "storeent_id": {
+                    "type": "string"
+                },
+                "displayable": {
+                    "type": "string"
+                },
+                "srchattr_id": {
+                    "type": "string"
+                },
+                "selection": {
+                    "type": "string"
+                },
+                "facet_id": {
+                    "type": "string"
+                },
+                "groupId": {
+                    "type": "string"
+                },
+                "sortorder": {
+                    "type": "string"
+                },
+                "fdesc": {
+                    "type": "string"
+                },
+                "propertyname": {
+                    "type": "string"
+                },
+                "keyword_search": {
+                    "type": "string"
+                },
+                "fname": {
+                    "type": "string"
+                },
+                "allowMultipleValueSelection": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProductViewHandler_productsbycategory.json.facetView.extendedData": {
+            "properties": {
+                "displaySequence": {
+                    "type": "string"
+                },
+                "srchattridentifier": {
+                    "type": "string"
+                },
+                "group_id": {
+                    "type": "string"
+                },
+                "allValuesReturned": {
+                    "type": "string"
+                },
+                "max_display": {
+                    "type": "string"
+                },
+                "zero_display": {
+                    "type": "string"
+                },
+                "propertyvalue": {
+                    "type": "string"
+                },
+                "maximumValuesToDisplay": {
+                    "type": "string"
+                },
+                "storeent_id": {
+                    "type": "string"
+                },
+                "displayable": {
+                    "type": "string"
+                },
+                "srchattr_id": {
+                    "type": "string"
+                },
+                "selection": {
+                    "type": "string"
+                },
+                "facet_id": {
+                    "type": "string"
+                },
+                "groupId": {
+                    "type": "string"
+                },
+                "sortorder": {
+                    "type": "string"
+                },
+                "fdesc": {
+                    "type": "string"
+                },
+                "propertyname": {
+                    "type": "string"
+                },
+                "keyword_search": {
+                    "type": "string"
+                },
+                "fname": {
+                    "type": "string"
+                },
+                "allowMultipleValueSelection": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProductViewHandler_productsbycategory.json.facetView.entry.extendedData": {
+            "properties": {
+                "uniqueId": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProductViewHandler_productsbycategory.json.catalogEntryView": {
+            "properties": {
+                "resourceId": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ProductViewHandler_productsbycategory.json.catalogEntryView.price"
+                    }
+                },
+                "thumbnail": {
+                    "type": "string"
+                },
+                "catalogEntryTypeCode": {
+                    "type": "string"
+                },
+                "shortDescription": {
+                    "type": "string"
+                },
+                "manufacturer": {
+                    "type": "string"
+                },
+                "parentCatalogGroupID": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "buyable": {
+                    "type": "string"
+                },
+                "uniqueID": {
+                    "type": "string"
+                },
+                "storeID": {
+                    "type": "string"
+                },
+                "metaData": {
+                    "$ref": "#/definitions/ProductViewHandler_productsbycategory.json.catalogEntryView.metaData"
+                },
+                "partNumber": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProductViewHandler_productdetails.json.catalogEntryView.price": {
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                },
+                "usage": {
+                    "type": "string"
+                },
+                "currency": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProductViewHandler_productdetails.json.catalogEntryView": {
+            "properties": {
+                "catalogEntryTypeCode": {
+                    "type": "string"
+                },
+                "disallowRecurringOrder": {
+                    "type": "string"
+                },
+                "parentCatalogGroupID": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "uniqueID": {
+                    "type": "string"
+                },
+                "fullImage": {
+                    "type": "string"
+                },
+                "resourceId": {
+                    "type": "string"
+                },
+                "thumbnail": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ProductViewHandler_productdetails.json.catalogEntryView.price"
+                    }
+                },
+                "ad_attribute": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ProductViewHandler_productdetails.json.catalogEntryView.ad_attribute"
+                    }
+                },
+                "shortDescription": {
+                    "type": "string"
+                },
+                "manufacturer": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "subscriptionTypeCode": {
+                    "type": "string"
+                },
+                "longDescription": {
+                    "type": "string"
+                },
+                "buyable": {
+                    "type": "string"
+                },
+                "attributes": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ProductViewHandler_productdetails.json.catalogEntryView.attributes"
+                    }
+                },
+                "storeID": {
+                    "type": "string"
+                },
+                "metaData": {
+                    "$ref": "#/definitions/ProductViewHandler_productdetails.json.catalogEntryView.metaData"
+                },
+                "partNumber": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProductViewHandler_productsbycategory.json.catalogEntryView.price": {
+            "properties": {
+                "description": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                },
+                "usage": {
+                    "type": "string"
+                },
+                "currency": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProductViewHandler_productdetails.json": {
+            "properties": {
+                "recordSetTotal": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "recordSetCount": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "resourceId": {
+                    "type": "string"
+                },
+                "catalogEntryView": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ProductViewHandler_productdetails.json.catalogEntryView"
+                    }
+                },
+                "recordSetComplete": {
+                    "type": "string"
+                },
+                "recordSetStartNumber": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "metaData": {
+                    "$ref": "#/definitions/ProductViewHandler_productdetails.json.metaData"
+                },
+                "resourceName": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProductViewHandler_productsbycategory.json.breadCrumbTrailEntryView": {
+            "properties": {
+                "type_": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProductViewHandler_productdetails.json.catalogEntryView.ad_attribute": {
+            "properties": {
+                "ad_attribute": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "usage": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProductViewHandler_productsbysearchterm.json": {
+            "properties": {
+                "recordSetTotal": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "recordSetCount": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "resourceId": {
+                    "type": "string"
+                },
+                "facetView": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ProductViewHandler_productsbysearchterm.json.facetView"
+                    }
+                },
+                "catalogEntryView": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ProductViewHandler_productsbysearchterm.json.catalogEntryView"
+                    }
+                },
+                "recordSetComplete": {
+                    "type": "string"
+                },
+                "recordSetStartNumber": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "metaData": {
+                    "$ref": "#/definitions/ProductViewHandler_productsbysearchterm.json.metaData"
+                },
+                "resourceName": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProductViewHandler_productsbysearchterm.json.metaData.previewReport": {
+            "properties": {
+                "report": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "ProductViewHandler_productsbysearchterm.json.facetView": {
+            "properties": {
+                "extendedData": {
+                    "$ref": "#/definitions/ProductViewHandler_productsbysearchterm.json.facetView.extendedData"
+                },
+                "entry": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ProductViewHandler_productsbysearchterm.json.facetView.entry"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProductViewHandler_productsbysearchterm.json.facetView.entry": {
+            "properties": {
+                "extendedData": {
+                    "$ref": "#/definitions/ProductViewHandler_productsbysearchterm.json.facetView.entry.extendedData"
+                },
+                "count": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "value": {
+                    "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                }
+            }
+        },
+        "ProductViewHandler_productsbysearchterm.json.catalogEntryView.attributes": {
+            "properties": {
+                "storeDisplay": {
+                    "type": "boolean"
+                },
+                "values": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/ProductViewHandler_productsbysearchterm.json.catalogEntryView.attributes.values"
+                    }
+                },
+                "sequence": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "usage": {
+                    "type": "string"
+                },
+                "uniqueID": {
+                    "type": "string"
+                },
+                "comparable": {
+                    "type": "boolean"
+                },
+                "displayable": {
+                    "type": "boolean"
+                },
+                "identifier": {
+                    "type": "string"
+                },
+                "facetable": {
+                    "type": "boolean"
+                },
+                "searchable": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "SiteContentHandler_brand.json.suggestionView.entry": {
+            "properties": {
+                "count": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "SiteContentHandler_category.json.suggestionView": {
+            "properties": {
+                "categorySeparator": {
+                    "type": "string"
+                },
+                "entry": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SiteContentHandler_category.json.suggestionView.entry"
+                    }
+                },
+                "identifier": {
+                    "type": "string"
+                }
+            }
+        },
+        "SiteContentHandler_webcontentsuggestions.json.suggestionView": {
+            "properties": {
+                "entry": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SiteContentHandler_webcontentsuggestions.json.suggestionView.entry"
+                    }
+                },
+                "identifier": {
+                    "type": "string"
+                }
+            }
+        },
+        "SiteContentHandler_brand.json.suggestionView": {
+            "properties": {
+                "entry": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SiteContentHandler_brand.json.suggestionView.entry"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                },
+                "identifier": {
+                    "type": "string"
+                }
+            }
+        },
+        "SiteContentHandler_webcontent.json.suggestionView": {
+            "properties": {
+                "categorySeparator": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "entry": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SiteContentHandler_webcontent.json.suggestionView.entry"
+                    }
+                },
+                "value": {
+                    "type": "string"
+                },
+                "identifier": {
+                    "type": "string"
+                }
+            }
+        },
+        "SiteContentHandler_keyword.json": {
+            "properties": {
+                "suggestionView": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SiteContentHandler_keyword.json.suggestionView"
+                    }
+                }
+            }
+        },
+        "SiteContentHandler_webcontentsuggestions.json.suggestionView.entry": {
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "path": {
+                    "type": "string"
+                }
+            }
+        },
+        "SiteContentHandler_sitecontent.json.webContentView": {
+            "properties": {
+                "mimetype": {
+                    "type": "string"
+                },
+                "shortDescription": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "longDescription": {
+                    "type": "string"
+                },
+                "uniqueID": {
+                    "type": "string"
+                },
+                "identifier": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
+        "SiteContentHandler_category.json.suggestionView.entry": {
+            "properties": {
+                "shortDescription": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "fullPath": {
+                    "type": "string"
+                }
+            }
+        },
+        "SiteContentHandler_custom.json": {},
+        "SiteContentHandler_webcontent.json": {
+            "properties": {
+                "suggestionView": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SiteContentHandler_webcontent.json.suggestionView"
+                    }
+                }
+            }
+        },
+        "SiteContentHandler_category.json": {
+            "properties": {
+                "suggestionView": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SiteContentHandler_category.json.suggestionView"
+                    }
+                }
+            }
+        },
+        "SiteContentHandler_product.json": {},
+        "SiteContentHandler_keyword.json.suggestionView.entry": {
+            "properties": {
+                "term": {
+                    "type": "string"
+                },
+                "frequency": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "SiteContentHandler_brand.json": {
+            "properties": {
+                "suggestionView": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SiteContentHandler_brand.json.suggestionView"
+                    }
+                }
+            }
+        },
+        "SiteContentHandler_sitecontent.json": {
+            "properties": {
+                "recordSetTotal": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "webContentView": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SiteContentHandler_sitecontent.json.webContentView"
+                    }
+                },
+                "recordSetCount": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "resourceId": {
+                    "type": "string"
+                },
+                "recordSetComplete": {
+                    "type": "string"
+                },
+                "recordSetStartNumber": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "resourceName": {
+                    "type": "string"
+                }
+            }
+        },
+        "SiteContentHandler_webcontentsuggestions.json": {
+            "properties": {
+                "suggestionView": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SiteContentHandler_webcontentsuggestions.json.suggestionView"
+                    }
+                }
+            }
+        },
+        "SiteContentHandler_webcontent.json.suggestionView.entry": {
+            "properties": {
+                "count": {
+                    "type": "string"
+                },
+                "shortDescription": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "path": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "fullPath": {
+                    "type": "string"
+                }
+            }
+        },
+        "SiteContentHandler_keyword.json.suggestionView": {
+            "properties": {
+                "entry": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/SiteContentHandler_keyword.json.suggestionView.entry"
+                    }
+                },
+                "identifier": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
