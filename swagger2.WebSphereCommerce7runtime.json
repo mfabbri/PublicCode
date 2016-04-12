@@ -1,12 +1,12 @@
 {
-  "host": "cloudcommerce.atsistemas.com",
+  "host": "localhost",
   "basePath": "/wcs/resources",
   "schemes": [
     "http"
   ],
   "swagger": "2.0",
   "info": {
-    "title": "cloudcommerce.atsistemas.com",
+    "title": "localhost",
     "version": "WC.TOOLKIT Enterprise Version : 7 Fix Pack : 9 Feature Pack : 7.0.8.0"
   },
   "tags": [
